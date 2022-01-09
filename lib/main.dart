@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(title: Text(widget.title)),
         body: Center(
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          const Text('zzzzzzzzzz:'),
+          const Text('888888888:'),
           Text('$_counter', style: Theme.of(context).textTheme.headline4)
         ])),
         floatingActionButton: FloatingActionButton(
