@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/theme.dart';
 
 import 'core/properties.dart';
-import 'modules/home/components/home_view.dart';
+import 'modules/home/view/home_view.dart';
 
 
 

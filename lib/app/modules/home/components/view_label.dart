@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeViewLabel extends StatelessWidget {
-  const HomeViewLabel({
+class ViewLabel extends StatelessWidget {
+  const ViewLabel({
     Key? key,
   }) : super(key: key);
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HVButton {
+class ViewButton {
 
   FloatingActionButton button(Function somar) {
     return FloatingActionButton(

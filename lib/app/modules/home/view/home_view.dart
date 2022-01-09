@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/modules/home/home_view_label.dart';
+import 'package:flutter_01_alpha/app/modules/home/components/view_label.dart';
+import 'package:flutter_01_alpha/app/modules/home/service/home_service.dart';
 
-import 'h_v_button.dart';
+import '../components/view_button.dart';
 
 class HomeView extends StatefulWidget {
   HomeView(this.title);
@@ -13,9 +14,11 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  HomeService service = HomeService(contador: 0);
+
   int _counter = 0;
 
-  void _incrementCounter() => setState(() => _counter++);
+  void _incrementCounter() => setState(() => _counter = service.incrementador());
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +27,11 @@ class _HomeViewState extends State<HomeView> {
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            HomeViewLabel(),
+          children: [
+            ViewLabel(),
             Text('$_counter', style: Theme.of(context).textTheme.headline4)
           ],
         )),
-        floatingActionButton: HVButton().button(_incrementCounter));
+        floatingActionButton: ViewButton().button(_incrementCounter));
   }
 }
