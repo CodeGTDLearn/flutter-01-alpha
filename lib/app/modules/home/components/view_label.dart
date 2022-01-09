@@ -7,6 +7,6 @@ class ViewLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('99999999:');
+    return Text('Botao checador do OS:');
   }
 }

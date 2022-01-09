@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_01_alpha/app/core/components/adaptive_button.dart';
 import 'package:flutter_01_alpha/app/modules/home/components/view_label.dart';
 import 'package:flutter_01_alpha/app/modules/home/service/home_service.dart';
 
@@ -20,10 +23,9 @@ class _HomeViewState extends State<HomeView> {
 
   void _incrementCounter() => setState(() => _counter = service.incrementador());
 
-
-
   @override
   Widget build(BuildContext context) {
+    var tipoDePlataforma = Platform.isAndroid ? "Android" : "Ios";
     return Scaffold(
         appBar: AppBar(title: Text(widget.title)),
         body: Center(
@@ -31,7 +33,8 @@ class _HomeViewState extends State<HomeView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ViewLabel(),
-            Text('$_counter', style: Theme.of(context).textTheme.headline4)
+            Text('$_counter', style: Theme.of(context).textTheme.headline4),
+            AdaptiveButton().button(context),
           ],
         )),
         floatingActionButton: ViewButton().button(_incrementCounter));
