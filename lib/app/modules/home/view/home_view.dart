@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline4,
               )),
           // AdaptiveButton().button(context),
-          _adaptiveButton.button(context),
+          _adaptiveButton.simpleButton(context),
         ],
       )),
       floatingActionButton: _viewButton.button(
