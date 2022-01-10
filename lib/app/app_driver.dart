@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/theme.dart';
+import 'package:get/get.dart';
 
 import 'core/properties.dart';
+import 'core/routes.dart';
 import 'modules/home/view/home_view.dart';
-
-
 
 void main() => runApp(AppDriver());
 
-
 class AppDriver extends StatelessWidget {
-
   Properties _properties = Properties();
   AppTheme _theme = AppTheme();
 
@@ -18,10 +16,20 @@ class AppDriver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: _properties.appName(),
-        theme: _theme.theme(),
-        home: HomeView(_properties.appTitle()));
+    return GetMaterialApp(
+      title: _properties.appName(),
+      debugShowCheckedModeBanner: false,
+      theme: _theme.theme(),
+      // home: HomeView(),
+      initialRoute: Routes.HOME_VIEW_URL,
+      getPages: Routes.appRoutes,
+    );
   }
-
 }
+// return GetMaterialApp(
+// navigatorKey: APP_CONTEXT_GLOBAL_KEY,
+// title: APP_TITLE,
+// theme: _appTheme.theme(_darkTheme.isDark.value),
+// initialRoute: Routes.OVERVIEW_ALL,
+// getPages: Routes.getAppRoutes,
+// );
