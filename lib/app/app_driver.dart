@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import 'core/properties.dart';
 import 'core/routes.dart';
-import 'modules/home/view/home_view.dart';
 
 void main() => runApp(AppDriver());
 
@@ -20,16 +19,8 @@ class AppDriver extends StatelessWidget {
       title: _properties.appName(),
       debugShowCheckedModeBanner: false,
       theme: _theme.theme(),
-      // home: HomeView(),
-      initialRoute: Routes.HOME_VIEW_URL,
+      initialRoute: Routes.LOGIN_VIEW_URL,
       getPages: Routes.appRoutes,
     );
   }
 }
-// return GetMaterialApp(
-// navigatorKey: APP_CONTEXT_GLOBAL_KEY,
-// title: APP_TITLE,
-// theme: _appTheme.theme(_darkTheme.isDark.value),
-// initialRoute: Routes.OVERVIEW_ALL,
-// getPages: Routes.getAppRoutes,
-// );

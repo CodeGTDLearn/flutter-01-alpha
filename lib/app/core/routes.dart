@@ -1,18 +1,23 @@
-import 'package:flutter_01_alpha/app/modules/home/view/home_view.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/elevator_list_view.dart';
+import 'package:flutter_01_alpha/app/modules/login/login_view.dart';
 import 'package:get/route_manager.dart';
 
-import 'bindings/home_bindings.dart';
+import 'bindings/login_bindings.dart';
 
 class Routes {
-  static const HOME_VIEW_URL = "/home";
+  static const LOGIN_VIEW_URL = "/login";
+  static const ELEVATOR_LIST_URL = "/elevatorList";
 
   static List<GetPage> appRoutes = [
     GetPage(
-      name: HOME_VIEW_URL,
-      page: () => HomeView(),
-      bindings: [
-        HomeBindings(),
-      ],
+      name: LOGIN_VIEW_URL,
+      page: () => LoginView(),
+      bindings: [LoginBindings()],
+    ),
+    GetPage(
+      name: ELEVATOR_LIST_URL,
+      page: () => ElevatorList(),
+      // bindings: [LoginBindings()],
     ),
   ];
 }

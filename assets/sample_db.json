@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "first_name": "Nicolas",
+  "last_name": "Genest",
+  "title": "CEO",
+  "email": "nicolas.genest@codeboxx.biz",
+  "created_at": "2021-11-18T21:57:44",
+  "updated_at": "2021-11-18T21:57:44",
+  "user_id": 1
+}

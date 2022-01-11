@@ -1,13 +1,15 @@
 class Properties {
- final String _APP_NAME = "Flutter Demo";
- final String _APP_TITLE = 'Flutter Demo Home Page';
+  final String _APP_NAME = "Rocket Elevators";
+  final String _APP_TITLE = 'Rocket Elevators Mobile';
+  final String _EMPLOYEE_DB_URL = "https://jt-rocket-rest-api.herokuapp.com/api/employees";
 
- String appName (){
-   return _APP_NAME;
- }
+  String get employee_db_url => _EMPLOYEE_DB_URL;
 
- String appTitle (){
-   return _APP_NAME;
- }
+  String appName() {
+    return _APP_NAME;
+  }
 
+  String appTitle() {
+    return _APP_TITLE;
+  }
 }
