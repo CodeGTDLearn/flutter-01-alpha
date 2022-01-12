@@ -13,31 +13,30 @@ class ElevatorListRepo {
     // api/elevators/{id}/online
     // @formatter:off
     var url = "${_properties.update_endp}$id/online";
-    Map bodyx = {
+    Map body = {
       "status" : "status"
     };
 
-    // HTTP-VERB(URI.PARSE + HEADERS + BODY) -> MANDATORY ORDER
+    // ATTENTION:
+    // HTTP-VERB-PARAMETERS 'MANDATORY' ORDER:
+    // 1) URI.PARSE
+    // 2) HEADERS
+    // 3) BODY
     return http
           .put(
-             Uri.parse(url),
-             headers: {
-               "content-type" : "application/json",
-               "accept" : "application/json",
-             },
-             body: jsonEncode(bodyx))
+                 Uri.parse(url),
+                 headers: {
+                   "content-type" : "application/json",
+                   "accept" : "application/json",
+                 },
+                 body: jsonEncode(body)
+             )
           .then((response) {
-             if (response.statusCode == 200) return "online";
-             return "offline";});
+                 if (response.statusCode == 200) return "online";
+                 if (response.statusCode >= 400) return "error";
+                 return "offline";
+          });
     // @formatter:on
-
-
-
-    // nicolas.genest@codeboxx.biz
-    // return http
-    //     .patch(Uri.parse("$noExtensionInUrlForUpdates${product.id}.json"),
-    //     body: jsonEncode(objectMappedInJsonFormat))
-    //     .then((response) => response.statusCode);
   }
 
   Future<List<Elevator>> getNotonlineElevators() {

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class CustomSliverAppBar {
   // final _keys = Get.find<GlobalWidgetsKeys>();
   SliverAppBar create(
-    String title,
-    Function backTapFunction, {
+    String title, {
+    Function? backTapFunction,
     IconData icon = Icons.arrow_back,
     List<Widget>? actions,
   }) {
@@ -13,11 +13,11 @@ class CustomSliverAppBar {
         floating: true,
         // key: Key(_keys.k_sliver_appbar()),
         title: Text(title),
-        automaticallyImplyLeading: true,
-        leading: GestureDetector(
-          onTap: () => backTapFunction.call(),
-          child: Icon(icon),
-        ),
+        automaticallyImplyLeading: false,
+        // leading: GestureDetector(
+        //   onTap: () => backTapFunction.call(),
+        //   child: Icon(icon),
+        // )
         actions: actions);
   }
 }

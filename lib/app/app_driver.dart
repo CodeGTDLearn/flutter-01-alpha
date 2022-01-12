@@ -1,26 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/theme.dart';
-import 'package:get/get.dart';
 
-import 'core/properties.dart';
-import 'core/routes.dart';
+import 'core/platform_drivers/cupertino_app.dart';
+import 'core/platform_drivers/material_app.dart';
 
-void main() => runApp(AppDriver());
-
-class AppDriver extends StatelessWidget {
-  Properties _properties = Properties();
-  AppTheme _theme = AppTheme();
-
-  AppDriver({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: _properties.appName,
-      debugShowCheckedModeBanner: false,
-      theme: _theme.theme(),
-      initialRoute: Routes.LOGIN_VIEW_URL,
-      getPages: Routes.appRoutes,
-    );
-  }
-}
+// void main() => runApp(AppDriver());
+void main() => Platform.isIOS
+    ? runApp(CupertinoDriver())
+    : runApp(
+        MaterialDriver(),
+      );

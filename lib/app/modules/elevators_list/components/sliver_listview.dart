@@ -25,7 +25,7 @@ class SliverListview {
                 verticalOffset: verticalOffset,
                 child: FadeInAnimation(
                     child:
-                        AnimatedListTile().customListTile(elevators.elementAt(index)))));
+                        AnimatedListTile().tile(elevators.elementAt(index)))));
       },
       childCount: elevators.length,
     )));

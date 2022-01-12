@@ -16,15 +16,15 @@ class ElevatorListController extends GetxController {
   }
 
   Future<String> updateElevatorStatus(String id) {
-    return service
-        .updateElevatorStatus(id)
-        .then((elevatorStatus) {
-      var index = notOnlineElevatorsObs.indexWhere((item) => item.id.toString() == id);
-      notOnlineElevatorsObs.removeAt(index);
-      elevatorStatusObs.value = elevatorStatus;
+    return service.updateElevatorStatus(id).then((elevatorStatus) {
+      if (elevatorStatus == 'online') {
+        var index = notOnlineElevatorsObs.indexWhere((item) => item.id.toString() == id);
+        notOnlineElevatorsObs.removeAt(index);
+        elevatorStatusObs.value = elevatorStatus;
+        return elevatorStatus;
+      }
       return elevatorStatus;
     });
-
   }
 
   Future<List<Elevator>> getNotonlineElevators() {
