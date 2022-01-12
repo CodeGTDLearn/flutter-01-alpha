@@ -1,37 +1,63 @@
 import 'dart:convert';
 
 import 'package:flutter_01_alpha/app/core/properties.dart';
-import 'package:flutter_01_alpha/app/modules/login/entity/employee.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
+
+import 'entity/elevator.dart';
 
 class ElevatorListRepo {
   final _properties = Get.find<Properties>();
 
-  Future<List<Employee>> getElevator() {
+  Future<String> updateElevatorStatus(String id) {
+    // api/elevators/{id}/online
+    // @formatter:off
+    var url = "${_properties.update_endp}$id/online";
+    Map bodyx = {
+      "status" : "status"
+    };
+
+    // HTTP-VERB(URI.PARSE + HEADERS + BODY) -> MANDATORY ORDER
     return http
-        .get(Uri.parse(_properties.employee_db_url),
+          .put(
+             Uri.parse(url),
+             headers: {
+               "content-type" : "application/json",
+               "accept" : "application/json",
+             },
+             body: jsonEncode(bodyx))
+          .then((response) {
+             if (response.statusCode == 200) return "online";
+             return "offline";});
+    // @formatter:on
+
+
+
+    // nicolas.genest@codeboxx.biz
+    // return http
+    //     .patch(Uri.parse("$noExtensionInUrlForUpdates${product.id}.json"),
+    //     body: jsonEncode(objectMappedInJsonFormat))
+    //     .then((response) => response.statusCode);
+  }
+
+  Future<List<Elevator>> getNotonlineElevators() {
+    return http
+        .get(Uri.parse(_properties.notonline_elevators_endp),
             headers: {"Accept": "application/json"})
         .then(_decodeResponse)
         .catchError((onError) => throw onError);
   }
 
-  List<Employee> _decodeResponse(http.Response response) {
-    var _employees = <Employee>[];
+  List<Elevator> _decodeResponse(http.Response response) {
+    var _elevators = <Elevator>[];
 
     var plainText = response.body;
     final json = jsonDecode(plainText);
     json == null
-        ? _employees = []
+        ? _elevators = []
         :
-        //Rahman
-        //    json.map<Employee>((resp) => Product.fromJson(resp)).toList();
-        // Paulo (anterior)
-        json.forEach((key, value) {
-            var employee = Employee.fromJson(value);
-            employee.id = key;
-            _employees.add(employee);
-          });
-    return _employees;
+        // Rahman
+        _elevators = json.map<Elevator>((resp) => Elevator.fromJson(resp)).toList();
+    return _elevators;
   }
 }

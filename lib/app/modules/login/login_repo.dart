@@ -9,7 +9,7 @@ class LoginRepo {
     // @formatter:off
     return
       http
-          .get(Uri.parse("${_properties.employee_db_url}/$email"))
+          .get(Uri.parse("${_properties.employee_endp}/$email"))
           .then((response) {
               return response.body == "true" ? true : false;
           })

@@ -16,7 +16,7 @@ class AppDriver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: _properties.appName(),
+      title: _properties.appName,
       debugShowCheckedModeBanner: false,
       theme: _theme.theme(),
       initialRoute: Routes.LOGIN_VIEW_URL,

@@ -10,6 +10,7 @@ class LoginBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => Properties());
+
     Get.lazyPut(() => MessageLabels());
     Get.lazyPut(() => LoginRepo());
     Get.lazyPut(() => LoginService());

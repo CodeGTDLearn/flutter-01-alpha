@@ -29,14 +29,14 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text(_properties.appTitle()), centerTitle: true),
+      appBar: AppBar(title: Text(_properties.appTitle), centerTitle: true),
       body: Center(
           child: Column(children: [
         Flexible(
             fit: FlexFit.tight,
             child: Container(
                 width: double.infinity,
-                child: const Image(image: AssetImage('assets/logo.png')))),
+                child: Image(image: AssetImage(_properties.appLogo)))),
         Flexible(
             fit: FlexFit.tight,
             child: Form(
@@ -51,7 +51,7 @@ class _LoginViewState extends State<LoginView> {
                 width: double.infinity,
                 alignment: Alignment.center,
                 child: InkWell(
-                    child: const Image(image: AssetImage('assets/elevator-btn.png')),
+                    child: Image(image: AssetImage('assets/elevator-btn.png')),
                     onTap: () {
                       var checkEmail = _validateEmail(context, _formKey.currentState);
                       FocusScope.of(context).unfocus();

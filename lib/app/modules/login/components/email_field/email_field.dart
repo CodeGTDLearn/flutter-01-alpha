@@ -51,7 +51,7 @@ class _EmailFieldState extends State<EmailField> {
         ),
         keyboardType: TextInputType.emailAddress,
         validator: (email) => email != null && !EmailValidator.validate(email)
-            ? _messages.email_format_field()
+            ? _messages.email_format_field
             : null,
       );
 }

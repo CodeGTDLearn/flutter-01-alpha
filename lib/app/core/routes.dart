@@ -1,7 +1,8 @@
-import 'package:flutter_01_alpha/app/modules/elevators_list/elevator_list_view.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_list_view.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_view.dart';
 import 'package:get/route_manager.dart';
 
+import 'bindings/elevator_list_bindings.dart';
 import 'bindings/login_bindings.dart';
 
 class Routes {
@@ -16,8 +17,8 @@ class Routes {
     ),
     GetPage(
       name: ELEVATOR_LIST_URL,
-      page: () => ElevatorList(),
-      // bindings: [LoginBindings()],
+      page: () => ElevatorListView(),
+      bindings: [ElevatorListBindings()],
     ),
   ];
 }
