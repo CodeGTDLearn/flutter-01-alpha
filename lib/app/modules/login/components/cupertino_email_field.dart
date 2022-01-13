@@ -37,7 +37,7 @@ class _CupertinoEmailFieldState extends State<CupertinoEmailField> {
       CupertinoTextFormFieldRow(
         controller: widget.controller,
         placeholder: 'Email',
-        prefix: Icon(CupertinoIcons.mail),
+        // prefix: Icon(CupertinoIcons.mail),
         keyboardType: TextInputType.emailAddress,
         // suffix: widget.controller.text.isEmpty
         //     ? Container(width: 0)
@@ -48,7 +48,7 @@ class _CupertinoEmailFieldState extends State<CupertinoEmailField> {
         decoration: BoxDecoration(
           color: CupertinoColors.extraLightBackgroundGray,
           border: Border.all(color: CupertinoColors.lightBackgroundGray, width: 2),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
         ),
         validator: (email) =>
         email != null && !EmailValidator.validate(email)

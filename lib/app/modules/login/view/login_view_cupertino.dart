@@ -50,7 +50,6 @@ class _LoginViewMaterialState extends State<LoginViewCupertino> {
                 color: CupertinoColors.systemRed,
                 width: double.infinity,
                 alignment: Alignment.center,
-                // todo: envolver material
                 child: Material(
                   child: InkWell(
                       child: const Image(image: AssetImage('assets/elevator-btn.png')),
