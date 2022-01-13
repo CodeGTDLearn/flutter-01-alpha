@@ -48,7 +48,7 @@ class _CupertinoEmailFieldState extends State<CupertinoEmailField> {
         decoration: BoxDecoration(
           color: CupertinoColors.extraLightBackgroundGray,
           border: Border.all(color: CupertinoColors.lightBackgroundGray, width: 2),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(6),
         ),
         validator: (email) =>
         email != null && !EmailValidator.validate(email)

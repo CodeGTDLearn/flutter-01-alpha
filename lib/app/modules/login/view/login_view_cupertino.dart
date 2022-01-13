@@ -30,48 +30,55 @@ class _LoginViewMaterialState extends State<LoginViewCupertino> {
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(middle: Text(_properties.appTitle)),
-      child: Center(
-          child: Column(children: [
-        Flexible(
-            fit: FlexFit.tight,
-            child: Container(
-                width: double.infinity,
-                child: Image(image: AssetImage(_properties.appLogo)))),
-        Flexible(
-            fit: FlexFit.tight,
-            child: Form(
-                key: _formKey,
-                child: SingleChildScrollView(
-                    padding: EdgeInsets.all(16),
-                    child: CupertinoEmailField(controller: _emailController)))),
-        Flexible(
-            fit: FlexFit.tight,
-            child: Container(
-                color: CupertinoColors.systemRed,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: Material(
-                  child: InkWell(
-                      child: const Image(image: AssetImage('assets/elevator-btn.png')),
-                      onTap: () {
-                        var checkEmail = _validateEmail(context, _formKey.currentState);
-                        FocusScope.of(context).unfocus();
-                        if (checkEmail) {
-                                  // @formatter:off
-                                  _controller
-                                      .authentication(_emailController.text.trim())
-                                      .then((value) =>
-                                  value
-                                      ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
-                                      : Get.defaultDialog(
-                                      title: _messages.opss_fail_title,
-                                      middleText:_messages.auth_fail_content)
-                                  );
-                          // @formatter:on
-                        }
-                      }),
-                )))
-      ])));
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Color.fromRGBO(240, 241, 247, 1),
+      child: SafeArea(
+        child: Center(
+            child: Column(children: [
+
+          Flexible(
+              fit: FlexFit.tight,
+              child: Container(
+                  width: double.infinity,
+                  child: Image(image: AssetImage(_properties.appLogo)))),
+          Flexible(
+              fit: FlexFit.tight,
+              child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                      padding: EdgeInsets.all(16),
+                      child: CupertinoEmailField(controller: _emailController)))),
+          Flexible(
+              fit: FlexFit.tight,
+              child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Material(
+                    child: InkWell(
+                        child: const Image(
+                          image: AssetImage('assets/elevator-btn.png'),
+                          width: double.infinity,
+                        ),
+                        onTap: () {
+                          var checkEmail = _validateEmail(context, _formKey.currentState);
+                          FocusScope.of(context).unfocus();
+                          if (checkEmail) {
+                                    // @formatter:off
+                                    _controller
+                                        .authentication(_emailController.text.trim())
+                                        .then((value) =>
+                                    value
+                                        ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
+                                        : Get.defaultDialog(
+                                        title: _messages.opss_fail_title,
+                                        middleText:_messages.auth_fail_content)
+                                    );
+                            // @formatter:on
+                          }
+                        }),
+                  )))
+        ])),
+      ));
 
   bool _validateEmail(BuildContext context, FormState? formState) {
     final form = formState!;

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/theme.dart';
 import 'package:get/get_navigation/src/root/get_cupertino_app.dart';
@@ -20,6 +21,12 @@ class CupertinoDriver extends StatelessWidget {
       theme: _theme.cupertinoTheme(),
       initialRoute: Routes.LOGIN_VIEW_URL,
       getPages: Routes.appRoutes,
+        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+          DefaultMaterialLocalizations.delegate,
+          DefaultWidgetsLocalizations.delegate,
+          DefaultCupertinoLocalizations.delegate,
+        ]
+
     );
   }
 }
