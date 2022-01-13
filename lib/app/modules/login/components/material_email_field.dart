@@ -4,19 +4,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_01_alpha/app/core/message_labels.dart';
 import 'package:get/instance_manager.dart';
 
-class EmailField extends StatefulWidget {
+class MaterialEmailField extends StatefulWidget {
   final TextEditingController controller;
 
-  const EmailField({
+  const MaterialEmailField({
     Key? key,
     required this.controller,
   }) : super(key: key);
 
   @override
-  _EmailFieldState createState() => _EmailFieldState();
+  _MaterialEmailFieldState createState() => _MaterialEmailFieldState();
 }
 
-class _EmailFieldState extends State<EmailField> {
+class _MaterialEmailFieldState extends State<MaterialEmailField> {
   final _messages = Get.find<MessageLabels>();
 
   @override

@@ -1,20 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/message_labels.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/routes.dart';
-import 'package:flutter_01_alpha/app/modules/login/components/email_field/email_field.dart';
+import 'package:flutter_01_alpha/app/modules/login/components/material_email_field.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-import '../../login_controller.dart';
+import '../login_controller.dart';
 
-class LoginViewCupertino extends StatefulWidget {
+class LoginViewMaterial extends StatefulWidget {
   @override
   _LoginViewMaterialState createState() => _LoginViewMaterialState();
 }
 
-class _LoginViewMaterialState extends State<LoginViewCupertino> {
+class _LoginViewMaterialState extends State<LoginViewMaterial> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _properties = Get.find<Properties>();
@@ -28,9 +27,12 @@ class _LoginViewMaterialState extends State<LoginViewCupertino> {
   }
 
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text(_properties.appTitle)),
-      child: Center(
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(
+        title: Text(_properties.appTitle),
+        // centerTitle: true,
+      ),
+      body: Center(
           child: Column(children: [
         Flexible(
             fit: FlexFit.tight,
@@ -43,16 +45,15 @@ class _LoginViewMaterialState extends State<LoginViewCupertino> {
                 key: _formKey,
                 child: SingleChildScrollView(
                     padding: EdgeInsets.all(16),
-                    child: EmailField(controller: _emailController)))),
+                    child: MaterialEmailField(controller: _emailController)))),
         Flexible(
             fit: FlexFit.tight,
             child: Container(
-                color: CupertinoColors.systemRed,
+                color: Colors.red,
                 width: double.infinity,
                 alignment: Alignment.center,
-                // todo: envolver material
                 child: InkWell(
-                    child: Image(image: AssetImage('assets/elevator-btn.png')),
+                    child: const Image(image: AssetImage('assets/elevator-btn.png')),
                     onTap: () {
                       var checkEmail = _validateEmail(context, _formKey.currentState);
                       FocusScope.of(context).unfocus();
