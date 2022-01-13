@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/components/custom_indicator.dart';
-import 'package:flutter_01_alpha/app/core/labels.dart';
-import 'package:flutter_01_alpha/app/core/message_labels.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/components/custom_sliver_appbar.dart';
+import 'package:flutter_01_alpha/app/core/components/timer_indicator.dart';
+import 'package:flutter_01_alpha/app/core/text/labels.dart';
+import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/components/mult_sliver_appbar.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/components/sliver_listview.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../../elevator_controller.dart';
+import '../elevator_controller.dart';
 
 class ElevatorListViewMaterial extends StatelessWidget {
   // const ElevatorList({Key? key}) : super(key: key);
 
   final _labels = Get.find<Labels>();
-  final _sliverAppbar = Get.find<CustomSliverAppBar>();
+  final _sliverAppbar = Get.find<MultSliverAppBar>();
   final _controller = Get.find<ElevatorListController>();
   final _messages = Get.find<MessageLabels>();
 
@@ -23,14 +23,14 @@ class ElevatorListViewMaterial extends StatelessWidget {
     return Scaffold(
         body: Obx(
       () => (_controller.notOnlineElevatorsObs.toList().isEmpty
-          ? CustomIndicator.message(message: _messages.elev_not_found_yet, fontSize: 20)
+          ? TimerIndicator.message(message: _messages.dbElevatorsEmpty, fontSize: 20)
           : RefreshIndicator(
               onRefresh: _controller.getNotonlineElevators,
               child: _controller.notOnlineElevatorsObs.toList().isEmpty
-                  ? Center(child: Text(_messages.elev_not_found_yet))
+                  ? Center(child: Text(_messages.elevetorNotFoundYet))
                   : CustomScrollView(slivers: [
                       _sliverAppbar.create(
-                        _labels.elev_list_title,
+                        _labels.elevListTitle,
                         icon: Icons.logout,
                         actions: [
                           Padding(

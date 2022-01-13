@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomModal {
+class SimpleModal {
   void create({
     required BuildContext context,
     required String content,

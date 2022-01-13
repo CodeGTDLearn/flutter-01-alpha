@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/components/custom_modal.dart';
-import 'package:flutter_01_alpha/app/core/labels.dart';
-import 'package:flutter_01_alpha/app/core/message_labels.dart';
+import 'package:flutter_01_alpha/app/core/components/simple_modal.dart';
+import 'package:flutter_01_alpha/app/core/text/labels.dart';
+import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../elevator_controller.dart';
+import '../elevator_controller.dart';
 
 class ElevatorDetailViewMaterial extends StatelessWidget {
   final Elevator _elevator;
@@ -47,7 +47,7 @@ class ElevatorDetailViewMaterial extends StatelessWidget {
   }
 
   Future<void> _modalConfirmation(context) async {
-    return CustomModal().create(
+    return SimpleModal().create(
         context: context,
         content: _messages.confirmation,
         labelYes: _labels.yes,
@@ -136,7 +136,7 @@ class ElevatorDetailViewMaterial extends StatelessWidget {
 
   void _updateFail() {
     Get.back();
-    Get.snackbar(_messages.opss_fail_title, _messages.error_update_try_again,
+    Get.snackbar(_labels.ops, _messages.errorUpdateTryAgain,
         backgroundColor: Colors.red, colorText: Colors.white);
   }
 

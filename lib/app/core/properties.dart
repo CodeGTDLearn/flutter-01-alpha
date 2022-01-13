@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
 class Properties {
   final String _APP_NAME = "Rocket Elevators";
   final String _APP_TITLE = 'Rocket Elevators Mobile';
@@ -11,6 +15,11 @@ class Properties {
   final  int _DELAY_MILLISEC_LISTTILE = 600;
   final  int _DELAY_MILLISEC_STATUS_ELEVATOR = 2000;
   final  double _VERTICAL_OFFSET_LISTVIEW = 300.0;
+  final localizationsDelegates2 = <LocalizationsDelegate<dynamic>>[
+    DefaultMaterialLocalizations.delegate,
+    DefaultWidgetsLocalizations.delegate,
+    DefaultCupertinoLocalizations.delegate,
+  ];
 
 
   int get delay_listview => _DELAY_MILLISEC_LISTVIEW;

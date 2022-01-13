@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter_01_alpha/app/modules/elevators_list/view/material/elevator_list_view_material.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_list_view_cupertino.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_list_view_material.dart';
 import 'package:flutter_01_alpha/app/modules/login/view/login_view_cupertino.dart';
 import 'package:flutter_01_alpha/app/modules/login/view/login_view_material.dart';
 import 'package:get/route_manager.dart';
@@ -15,13 +16,21 @@ class Routes {
   static List<GetPage> appRoutes = [
     GetPage(
       name: LOGIN_VIEW_URL,
-      page: () => Platform.isIOS ? LoginViewCupertino() : LoginViewMaterial(),
-      bindings: [LoginBindings()],
+      // page: () => Platform.isIOS ? LoginViewCupertino() : LoginViewMaterial(),
+      page: () => Platform.isAndroid ? LoginViewCupertino() : LoginViewMaterial(),
+      bindings: [
+        LoginBindings(),
+      ],
     ),
     GetPage(
       name: ELEVATOR_LIST_URL,
-      page: () => ElevatorListViewMaterial(),
-      bindings: [ElevatorListBindings()],
+      // page: () =>
+      // Platform.isIOS ? ElevatorListViewCupertino() : ElevatorListViewMaterial(),
+      page: () =>
+          Platform.isAndroid ? ElevatorListViewCupertino() : ElevatorListViewMaterial(),
+      bindings: [
+        ElevatorListBindings(),
+      ],
     ),
   ];
 }

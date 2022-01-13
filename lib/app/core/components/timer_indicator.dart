@@ -5,27 +5,24 @@ import 'package:get/instance_manager.dart';
 import '../properties.dart';
 
 // ignore: must_be_immutable
-class CustomIndicator extends StatefulWidget {
+class TimerIndicator extends StatefulWidget {
   final _properties = Get.find<Properties>();
-
   double? radius;
   String? message;
   double? fontSize;
   bool _showCircularProgressIndicator = true;
 
+  TimerIndicator.message({required this.message, required this.fontSize});
 
+  TimerIndicator.radius([this.radius]);
 
-  CustomIndicator.message({required this.message, required this.fontSize});
-
-  CustomIndicator.radius([this.radius]);
-
-  CustomIndicator();
+  TimerIndicator();
 
   @override
-  _CustomIndicatorState createState() => _CustomIndicatorState();
+  _TimerIndicatorState createState() => _TimerIndicatorState();
 }
 
-class _CustomIndicatorState extends State<CustomIndicator> {
+class _TimerIndicatorState extends State<TimerIndicator> {
   @override
   void initState() {
     super.initState();
@@ -35,14 +32,6 @@ class _CustomIndicatorState extends State<CustomIndicator> {
   @override
   void dispose() => super.dispose();
 
-  void _timer() async {
-    await Future.delayed(Duration(seconds: widget._properties.cust_prog_delay));
-
-    if (mounted) {
-      setState(() => widget._showCircularProgressIndicator = false);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,8 +39,13 @@ class _CustomIndicatorState extends State<CustomIndicator> {
       height: widget.radius ?? MediaQuery.of(context).size.height,
       alignment: Alignment.center,
       child: widget._showCircularProgressIndicator
-          ? CircularProgressIndicator()
+          ? const CircularProgressIndicator.adaptive()
           : Text(widget.message!, style: TextStyle(fontSize: widget.fontSize)),
     );
+  }
+
+  void _timer() async {
+    await Future.delayed(Duration(seconds: widget._properties.cust_prog_delay));
+    if (mounted) setState(() => widget._showCircularProgressIndicator = false);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/components/animated_listtile.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/components/animated_tile.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -25,7 +25,7 @@ class SliverListview {
                 verticalOffset: verticalOffset,
                 child: FadeInAnimation(
                     child:
-                        AnimatedListTile().tile(elevators.elementAt(index)))));
+                        AnimatedTile().tile(elevators.elementAt(index)))));
       },
       childCount: elevators.length,
     )));

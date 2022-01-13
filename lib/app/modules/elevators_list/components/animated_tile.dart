@@ -2,11 +2,11 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/view/material/elevator_detail_view_material.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_detail_view_material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 
-class AnimatedListTile {
+class AnimatedTile {
   final _properties = Get.find<Properties>();
 
   @override
