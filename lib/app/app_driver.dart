@@ -16,6 +16,6 @@ void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  // Platform.isIOS ? runApp(CupertinoDriver()) : runApp(MaterialDriver());
-  Platform.isAndroid ? runApp(CupertinoDriver()) : runApp(MaterialDriver());
+  Platform.isIOS ? runApp(CupertinoDriver()) : runApp(MaterialDriver());
+  // Platform.isAndroid ? runApp(CupertinoDriver()) : runApp(MaterialDriver());
 }

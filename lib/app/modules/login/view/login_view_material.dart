@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
@@ -14,6 +17,7 @@ class LoginViewMaterial extends StatelessWidget {
   final _properties = Get.find<Properties>();
   final _messages = Get.find<MessageLabels>();
   final _controller = Get.find<LoginController>();
+  final _modal = Get.find<IAdaptiveModal>(tag: Platform.operatingSystem);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -45,9 +49,9 @@ class LoginViewMaterial extends StatelessWidget {
                   width: double.infinity,
                   alignment: Alignment.center,
                   child: InkWell(
-                      child: const Image(image: AssetImage('assets/elevator-btn.png')),
+                      child: Image(image: AssetImage(_properties.appLoginImgBtn)),
                       onTap: () {
-                        // @formatter:off
+                                // @formatter:off
                         var checkEmail = _controller.emailValidation(context);
                         FocusScope.of(context).unfocus();
                         if (checkEmail) {
@@ -55,10 +59,19 @@ class LoginViewMaterial extends StatelessWidget {
                                .authentication(_controller.emailController.text.trim())
                                .then((value) => value
                                           ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
-                                          : Get.defaultDialog(
-                                          title: _labels.ops,
-                                          middleText:_messages.authFailContent)
-                           );
+                                          : _modal.create(
+                                                 context,
+                                                 _messages.authFailContent,
+                                                // labelYes: labelYes,
+                                                // labelNo: labelNo,
+                                                // actionYes: actionYes,
+                                                // actionNo: actionNo,
+                                              ));
+
+                           // Get.defaultDialog(
+                           //                title: _labels.ops,
+                           //                middleText:_messages.authFailContent)
+                           // );
                         }
                         // @formatter:on
                       })))

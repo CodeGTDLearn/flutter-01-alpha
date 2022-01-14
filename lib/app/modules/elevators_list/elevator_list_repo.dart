@@ -12,7 +12,7 @@ class ElevatorListRepo {
   Future<String> updateElevatorStatus(String id) {
     // api/elevators/{id}/online
     // @formatter:off
-    var url = "${_properties.update_endp}$id/online";
+    var url = "${_properties.updateEndp}$id/online";
     Map body = {
       "status" : "status"
     };
@@ -41,7 +41,7 @@ class ElevatorListRepo {
 
   Future<List<Elevator>> getNotonlineElevators() {
     return http
-        .get(Uri.parse(_properties.notonline_elevators_endp),
+        .get(Uri.parse(_properties.notOnlineElevatorsEndp),
             headers: {"Accept": "application/json"})
         .then(_decodeResponse)
         .catchError((onError) => throw onError);

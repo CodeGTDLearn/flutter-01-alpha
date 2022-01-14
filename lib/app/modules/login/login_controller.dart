@@ -17,9 +17,8 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
-    // Simulating obtaining the user name
-    // from some local storage
-    // emailController.text = _labels.labelLoginField;
+    // delete when deply the AppBar
+     emailController.text = "nicolas.genest@codeboxx.biz";
     super.onInit();
   }
 

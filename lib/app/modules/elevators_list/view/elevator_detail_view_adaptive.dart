@@ -2,36 +2,38 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/components/simple_modal.dart';
+import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
+import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../elevator_controller.dart';
 
-class ElevatorDetailViewMaterial extends StatelessWidget {
-  final Elevator _elevator;
+class ElevatorDetailViewAdaptive extends StatelessWidget {
+  Elevator? elevator;
 
-  ElevatorDetailViewMaterial(this._elevator);
+  ElevatorDetailViewAdaptive({this.elevator});
 
   final _messages = Get.find<MessageLabels>();
   final _properties = Get.find<Properties>();
   final _labels = Get.find<Labels>();
   final _controller = Get.find<ElevatorListController>();
+  final _modal = Get.find<IAdaptiveModal>(tag: Platform.operatingSystem);
 
   @override
   Widget build(BuildContext context) {
-    _controller.elevatorStatusObs.value = _elevator.status;
+    elevator ?? Get.arguments();
+    _controller.elevatorStatusObs.value = elevator!.status;
 
-    return Scaffold(
-        appBar: AppBar(
-            title: Text("Elevator ID: ${_elevator.id.toString()}"), centerTitle: true),
+    return PlatformScaffold(
+        appBar: PlatformAppBar(title: Text("Elevator ID: ${elevator!.id.toString()}")),
         body: Center(
             child: Column(children: [
-          Flexible(fit: FlexFit.tight, child: _infoListCard()),
+          Flexible(fit: FlexFit.tight, child: _elevatorInfoCard()),
           Flexible(
               fit: FlexFit.tight,
               child: Container(
@@ -40,27 +42,28 @@ class ElevatorDetailViewMaterial extends StatelessWidget {
                     () => InkWell(
                         child: _button(),
                         onTap: () {
-                          _modalConfirmation(context);
+                          _adaptiveModalConfirmation(context);
                         }),
                   )))
         ])));
   }
 
-  Future<void> _modalConfirmation(context) async {
-    return SimpleModal().create(
-        context: context,
-        content: _messages.confirmation,
-        labelYes: _labels.yes,
-        labelNo: _labels.no,
-        actionNo: () => Get.back(),
-        actionYes: () async {
-          await _controller
-              .updateElevatorStatus(_elevator.id.toString())
-              .then((elevatorStatus) async {
-            if (elevatorStatus == 'online') await _updateSucess(elevatorStatus);
-            if (elevatorStatus == 'error') _updateFail();
-          });
+  Future<void> _adaptiveModalConfirmation(context) async {
+    return _modal.create(
+      context,
+      _messages.confirmation,
+      labelYes: _labels.yes,
+      labelNo: _labels.no,
+      actionNo: () => Get.back(),
+      actionYes: () async {
+        await _controller
+            .updateElevatorStatus(elevator!.id.toString())
+            .then((elevatorStatus) async {
+          if (elevatorStatus == 'online') await _updateSucess(elevatorStatus);
+          if (elevatorStatus == 'error') _updateFail();
         });
+      },
+    );
   }
 
   Container _button() {
@@ -90,7 +93,7 @@ class ElevatorDetailViewMaterial extends StatelessWidget {
             boxShadow: [_boxShadow()]));
   }
 
-  Container _infoListCard() {
+  Container _elevatorInfoCard() {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(30),
@@ -99,10 +102,10 @@ class ElevatorDetailViewMaterial extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _richTextLine("S/N: ", _elevator.serialNumber),
-          _richTextLine("MODEL: ", _elevator.model.toUpperCase()),
-          _richTextLine("TYPE: ", _elevator.types.toUpperCase()),
-          _richTextLine("CREATED AT: ", _elevator.created_at.substring(0, 10)),
+          _richTextLine("S/N: ", elevator!.serialNumber),
+          _richTextLine("MODEL: ", elevator!.model.toUpperCase()),
+          _richTextLine("TYPE: ", elevator!.types.toUpperCase()),
+          _richTextLine("CREATED AT: ", elevator!.created_at.substring(0, 10)),
         ],
       ),
       decoration: BoxDecoration(
@@ -142,8 +145,8 @@ class ElevatorDetailViewMaterial extends StatelessWidget {
 
   Future<void> _updateSucess(String elevatorStatus) async {
     Get.back();
-    _elevator.status = elevatorStatus;
-    await Future.delayed(Duration(milliseconds: _properties.delay_status_elevator))
+    elevator!.status = elevatorStatus;
+    await Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
         .whenComplete(() => Get.back());
   }
 
@@ -154,3 +157,26 @@ class ElevatorDetailViewMaterial extends StatelessWidget {
         blurRadius: 5.0,
       );
 }
+// @override
+// Widget build(BuildContext context) {
+//   _controller.elevatorStatusObs.value = _elevator.status;
+//
+//   return Scaffold(
+//       appBar: AppBar(
+//           title: Text("Elevator ID: ${_elevator.id.toString()}"), centerTitle: true),
+//       body: Center(
+//           child: Column(children: [
+//         Flexible(fit: FlexFit.tight, child: _infoListCard()),
+//         Flexible(
+//             fit: FlexFit.tight,
+//             child: Container(
+//                 alignment: Alignment.center,
+//                 child: Obx(
+//                   () => InkWell(
+//                       child: _button(),
+//                       onTap: () {
+//                         _modalConfirmation(context);
+//                       }),
+//                 )))
+//       ])));
+// }

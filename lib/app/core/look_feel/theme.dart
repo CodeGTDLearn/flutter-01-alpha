@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class AppTheme {
   ThemeData materialTheme() => ThemeData(
         primarySwatch: Colors.blue,
-        // dividerColor: Colors.pink,
       );
 
   CupertinoThemeData cupertinoTheme() {
-    return CupertinoThemeData(
+    return const CupertinoThemeData(
       primaryColor: Colors.red,
       // primaryContrastingColor: Color.fromARGB(255, 100, 100, 255),
       // barBackgroundColor: Color.fromARGB(255, 255, 100, 100),
+      brightness: Brightness.light,
       textTheme: CupertinoTextThemeData(
           navLargeTitleTextStyle: TextStyle(
         fontWeight: FontWeight.bold,

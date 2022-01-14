@@ -1,5 +1,6 @@
 class Labels {
   final _LOGIN_FIELD = "Type your Email";
+  final _LARGETITLE_SLIVER_APPBAR_CUPERTINO = "Not Online";
   final _LOGIN_FIELD_HINT = "Type your Email";
   final _ELEVATOR_LIST_TITLE_APPBAR = "Elevator Status List";
   final _ELEVATOR_DETAILS_TITLE_APPBAR = "Elevator Status List";
@@ -7,6 +8,8 @@ class Labels {
   final _NO = "NO";
   final _OPSS = "OOps..";
   final _SUCESS = "OOps..";
+
+  String get large_title => _LARGETITLE_SLIVER_APPBAR_CUPERTINO;
 
   String get sucess => _SUCESS;
 

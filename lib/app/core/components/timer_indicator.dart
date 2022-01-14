@@ -45,7 +45,7 @@ class _TimerIndicatorState extends State<TimerIndicator> {
   }
 
   void _timer() async {
-    await Future.delayed(Duration(seconds: widget._properties.cust_prog_delay));
+    await Future.delayed(Duration(seconds: widget._properties.custProgDelay));
     if (mounted) setState(() => widget._showCircularProgressIndicator = false);
   }
 }

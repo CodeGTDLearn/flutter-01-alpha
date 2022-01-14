@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/components/animated_tile.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
+
+import 'animated_list_tile/i_animated_tile.dart';
 
 class SliverListview {
   final delayMilliseconds = 600;
   final double verticalOffset = 300.0;
+  final _animated = Get.find<IAnimatedListTile>(tag: Platform.operatingSystem);
 
   SliverListview({
     delayMilliseconds,
@@ -24,8 +29,7 @@ class SliverListview {
             child: SlideAnimation(
                 verticalOffset: verticalOffset,
                 child: FadeInAnimation(
-                    child:
-                        AnimatedTile().tile(elevators.elementAt(index)))));
+                    child: _animated.tile(elevators.elementAt(index)))));
       },
       childCount: elevators.length,
     )));

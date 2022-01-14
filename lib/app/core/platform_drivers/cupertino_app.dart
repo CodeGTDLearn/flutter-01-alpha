@@ -7,8 +7,8 @@ import '../properties.dart';
 import '../routes.dart';
 
 class CupertinoDriver extends StatelessWidget {
-  Properties _properties = Properties();
-  AppTheme _theme = AppTheme();
+  final Properties _properties = Properties();
+  final AppTheme _theme = AppTheme();
 
   CupertinoDriver({Key? key}) : super(key: key);
 
@@ -16,13 +16,14 @@ class CupertinoDriver extends StatelessWidget {
   Widget build(BuildContext context) {
     /*
   ╔═════════════════════════════════════════════════════════╗
-  ║        Instantiates CupertinoApp, which provides:       ║
+  ║       Instantiates CupertinoApp, which provides:        ║
   ║ theming, navigation, text direction, and other defaults ║
   ║    required to create an app that an iOS user expects.  ║
   ╚═════════════════════════════════════════════════════════╝
   */
 
     return GetCupertinoApp(
+        navigatorKey: _properties.contextGkey,
         title: _properties.appName,
         debugShowCheckedModeBanner: false,
         theme: _theme.cupertinoTheme(),
