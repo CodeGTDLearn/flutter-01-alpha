@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/components/timer_indicator.dart';
+import 'package:flutter_01_alpha/app/core/components/timer_messager_indicator.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/components/multi_sliver_appbar/i_adaptive_sliver_appbar.dart';
@@ -22,7 +22,8 @@ class ElevatorListViewMaterial extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Obx(() => (_controller.notOnlineElevatorsObs.toList().isEmpty
-            ? TimerIndicator.message(message: _messages.dbElevatorsEmpty, fontSize: 20)
+            ? TimerMessageIndicator.message(
+                message: _messages.dbElevatorsEmpty, fontSize: 20)
             : RefreshIndicator(
                 onRefresh: _controller.getNotonlineElevators,
                 child: _controller.notOnlineElevatorsObs.toList().isEmpty

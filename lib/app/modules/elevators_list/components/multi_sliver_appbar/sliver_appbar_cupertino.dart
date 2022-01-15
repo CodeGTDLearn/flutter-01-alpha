@@ -26,7 +26,7 @@ class SliverAppBarCupertino implements IAdaptiveSliverAppBar {
           ? null
           : CupertinoButton(
               child: Icon(trailingIcon),
-              onPressed: () => trailingFunction,
+              onPressed: () => trailingFunction!.call(),
             ),
       // key: Key(_keys.k_sliver_appbar()),
       // leading: isBackTapNull ? null : CupertinoButton(

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_01_alpha/app/core/components/timer_indicator.dart';
+import 'package:flutter_01_alpha/app/core/components/timer_messager_indicator.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/components/multi_sliver_appbar/i_adaptive_sliver_appbar.dart';
@@ -23,12 +23,12 @@ class ElevatorListViewCupertino extends StatelessWidget {
     return CupertinoPageScaffold(
         // navigationBar: CupertinoNavigationBar(middle: Text(_labels.elevListTitle)),
         child: Obx(() => (_controller.notOnlineElevatorsObs.toList().isEmpty
-            ? TimerIndicator.message(message: _messages.dbElevatorsEmpty, fontSize: 20)
+            ? TimerMessageIndicator.message(message: _messages.dbElevatorsEmpty, fontSize: 20)
             : FutureBuilder(
                 future: _controller.getNotonlineElevators(),
                 builder: (c, snap) {
                   if (snap.hasError) {
-                    return TimerIndicator.message(
+                    return TimerMessageIndicator.message(
                         message: _messages.error_try_later, fontSize: 20);
                   }
                   return _customScrollView();

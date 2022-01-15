@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:flutter_01_alpha/app/modules/login/components/email_form_field_cupertino.dart';
@@ -32,75 +33,46 @@ class LoginViewCupertino extends StatelessWidget {
               flex: 3,
               fit: FlexFit.tight,
               child: Center(
-                child: Form(
-                    key: _controller.loginFormKey,
-                    child: SingleChildScrollView(
-                        padding: EdgeInsets.all(16),
-                        child: EmailFormFieldCupertino().field(
-                          _controller,
-                          hint: _labels.labelLoginFieldHint,
-                          iconPrefix: Icons.mail,
-                          // iconSufix: Icons.close,
-                        ))),
-              )),
+                  child: Form(
+                      key: _controller.loginFormKey,
+                      child: SingleChildScrollView(
+                          padding: EdgeInsets.all(16),
+                          child: EmailFormFieldCupertino().field(
+                            _controller,
+                            hint: _labels.labelLoginFieldHint,
+                            iconPrefix: Icons.mail,
+                            // iconSufix: Icons.close,
+                          ))))),
           Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: Material(
-              color: Colors.transparent,
-              child: Ink(
-                width: 100,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fill, image: AssetImage(_properties.appLoginImgBtn)),
-                  shape: BoxShape.circle,
-                ),
-                child: InkWell(
-                    onTap: () {},
-                    customBorder: const CircleBorder(),
-                    child: Image(image: AssetImage(_properties.appLoginImgBtn)),
-                    // splashColor: Colors.red,
-                    ), 
-              ),
-            ),
-          ),
-          const Spacer(flex: 2)
+              flex: 1,
+              fit: FlexFit.tight,
+              child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                      onTap: () => _triggerButtonAction(context),
+                      customBorder: const CircleBorder(),
+                      child: Image(image: AssetImage(_properties.appLoginImgBtn)),
+                      splashColor: Colors.grey))),
+          const Spacer(flex: 1)
         ])),
       ));
+
+  void _triggerButtonAction(BuildContext context) {
+    var checkEmail = _controller.emailValidation(context);
+    FocusScope.of(context).unfocus();
+    if (checkEmail) {
+      var checkEmail = _controller.emailValidation(context);
+      FocusScope.of(context).unfocus();
+      if (checkEmail) {
+        _controller
+            .authentication(_controller.emailController.text.trim())
+            .then((value) => value
+                ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
+                : Get.defaultDialog(
+                    title: _labels.ops,
+                    middleText: _messages.authFailContent,
+                  ));
+      }
+    }
+  }
 }
-// InkWell(
-//     child: Container(
-//       width: 190.0,
-//       height: 190.0,
-//       decoration: BoxDecoration(
-//         shape: BoxShape.circle,
-//         color: Colors.pink,
-//         image: DecorationImage(
-//           fit: BoxFit.fill,
-//           image: AssetImage(_properties.appLoginImgBtn),
-//         ),
-//       ),
-//       // child: Image(
-//       //   image: AssetImage(_properties.appLoginImgBtn),
-//       // ),
-//     ),
-//     onTap: () {
-//       var checkEmail = _controller.emailValidation(context);
-//       FocusScope.of(context).unfocus();
-//       if (checkEmail) {
-//                 // @formatter:off
-//             var checkEmail = _controller.emailValidation(context);
-//             FocusScope.of(context).unfocus();
-//             if (checkEmail) {
-//               _controller
-//                   .authentication(_controller.emailController.text.trim())
-//                   .then((value) => value
-//                   ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
-//                   : Get.defaultDialog(
-//                   title: _labels.ops,
-//                   middleText:_messages.authFailContent)
-//               );
-//             }
-//         // @formatter:on
-//       }
-//     })

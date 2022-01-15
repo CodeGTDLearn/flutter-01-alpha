@@ -50,31 +50,24 @@ class LoginViewMaterial extends StatelessWidget {
                   alignment: Alignment.center,
                   child: InkWell(
                       child: Image(image: AssetImage(_properties.appLoginImgBtn)),
-                      onTap: () {
-                                // @formatter:off
-                        var checkEmail = _controller.emailValidation(context);
-                        FocusScope.of(context).unfocus();
-                        if (checkEmail) {
-                           _controller
-                               .authentication(_controller.emailController.text.trim())
-                               .then((value) => value
-                                          ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
-                                          : _modal.create(
-                                                 context,
-                                                 _messages.authFailContent,
-                                                // labelYes: labelYes,
-                                                // labelNo: labelNo,
-                                                // actionYes: actionYes,
-                                                // actionNo: actionNo,
-                                              ));
-
-                           // Get.defaultDialog(
-                           //                title: _labels.ops,
-                           //                middleText:_messages.authFailContent)
-                           // );
-                        }
-                        // @formatter:on
-                      })))
+                      onTap: () => _triggerButtonAction(context))))
         ])),
       ));
+
+  void _triggerButtonAction(BuildContext context) {
+    // @formatter:off
+    var checkEmail = _controller.emailValidation(context);
+    FocusScope.of(context).unfocus();
+    if (checkEmail) {
+       _controller
+           .authentication(_controller.emailController.text.trim())
+           .then((value) => value
+                      ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
+                      : Get.defaultDialog(
+                      title: _labels.ops,
+                      middleText:_messages.authFailContent)
+       );
+    }
+    // @formatter:on
+  }
 }

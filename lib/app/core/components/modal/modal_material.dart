@@ -6,30 +6,19 @@ class ModalMaterial implements IAdaptiveModal {
   @override
   void create(
     BuildContext context,
-    String content, {
-    String? labelYes,
-    String? labelNo,
-    Function? actionYes,
-    Function? actionNo,
-  }) {
-    var _noButton = labelNo == null
-        ? TextButton(
-            onPressed: () => actionNo!.call(),
-            child: Text(labelNo!),
-          )
-        : null;
-
-    var _yesButton = labelYes == null
-        ? TextButton(
-            onPressed: () => actionYes!.call(),
-            child: Text(labelYes!),
-          )
-        : null;
-
-    var alertDialog = AlertDialog(content: Text(content), actions: [
-      _yesButton!,
-      _noButton!,
-    ]);
+    String content,
+    String labelYes,
+    String labelNo,
+    Function actionYes,
+    Function actionNo,
+  ) {
+    var alertDialog = AlertDialog(
+      content: Text(content),
+      actions: [
+        TextButton(onPressed: () => actionYes.call(), child: Text(labelYes)),
+        TextButton(onPressed: () => actionNo.call(), child: Text(labelNo)),
+      ],
+    );
 
     showDialog(
       context: context,

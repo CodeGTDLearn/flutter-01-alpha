@@ -6,7 +6,6 @@ import 'i_adaptive_sliver_appbar.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class SliverAppBarMaterial implements IAdaptiveSliverAppBar {
-
   @override
   SliverAppBar create(
     String title, {
@@ -16,17 +15,27 @@ class SliverAppBarMaterial implements IAdaptiveSliverAppBar {
     return SliverAppBar(
       title: Text(title),
       automaticallyImplyLeading: false,
-      actions: trailingIcon == null
-          ? null
-          : [
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () => trailingFunction,
-                  child: Icon(trailingIcon),
-                ),
-              )
-            ],
+      actions:
+      [
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: GestureDetector(
+            child: Icon(trailingIcon),
+            onTap: () => trailingFunction,
+          ),
+        )
+      ],
+      // trailingIcon == null
+      //     ? null
+      //     : [
+      //         Padding(
+      //           padding: const EdgeInsets.only(right: 20.0),
+      //           child: GestureDetector(
+      //             child: Icon(trailingIcon),
+      //             onTap: () => trailingFunction,
+      //           ),
+      //         )
+      //       ],
       // key: Key(_keys.k_sliver_appbar()),
       // floating: true,
       // leading: GestureDetector(

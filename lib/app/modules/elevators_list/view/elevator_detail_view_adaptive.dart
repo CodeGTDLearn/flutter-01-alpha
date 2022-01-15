@@ -52,10 +52,9 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
     return _modal.create(
       context,
       _messages.confirmation,
-      labelYes: _labels.yes,
-      labelNo: _labels.no,
-      actionNo: () => Get.back(),
-      actionYes: () async {
+      _labels.yes,
+      _labels.no,
+      () async {
         await _controller
             .updateElevatorStatus(elevator!.id.toString())
             .then((elevatorStatus) async {
@@ -63,6 +62,7 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
           if (elevatorStatus == 'error') _updateFail();
         });
       },
+      () => Get.back(),
     );
   }
 
