@@ -19,7 +19,7 @@ class LoginViewCupertino extends StatelessWidget {
   Widget build(BuildContext context) => CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(middle: Text(_properties.appTitle)),
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color.fromRGBO(240, 241, 247, 1),
+      backgroundColor: const Color.fromRGBO(240, 241, 247, 1),
       child: SafeArea(
         child: Center(
             child: Column(children: [
@@ -36,7 +36,7 @@ class LoginViewCupertino extends StatelessWidget {
                   child: Form(
                       key: _controller.loginFormKey,
                       child: SingleChildScrollView(
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: EmailFormFieldCupertino().field(
                             _controller,
                             hint: _labels.labelLoginFieldHint,

@@ -29,6 +29,6 @@ class CupertinoDriver extends StatelessWidget {
         theme: _theme.cupertinoTheme(),
         initialRoute: Routes.LOGIN_VIEW_URL,
         getPages: Routes.appRoutes,
-        localizationsDelegates: _properties.localizationsDelegates2);
+        localizationsDelegates: _properties.localizationsDelegates);
   }
 }

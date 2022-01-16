@@ -17,7 +17,7 @@ class Properties {
   final int _DELAY_MILLISEC_LISTTILE = 600;
   final int _DELAY_MILLISEC_STATUS_ELEVATOR = 2000;
   final double _VERTICAL_OFFSET_LISTVIEW = 300.0;
-  final localizationsDelegates2 = <LocalizationsDelegate<dynamic>>[
+  final localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     DefaultMaterialLocalizations.delegate,
     DefaultWidgetsLocalizations.delegate,
     DefaultCupertinoLocalizations.delegate,
