@@ -17,7 +17,6 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
-    // delete when deply the AppBar
      emailController.text = "nicolas.genest@codeboxx.biz";
     super.onInit();
   }
