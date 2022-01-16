@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'core/platform_drivers/cupertino_app.dart';
 import 'core/platform_drivers/material_app.dart';
-
+//---------------------
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
