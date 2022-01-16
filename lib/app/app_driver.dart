@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'core/platform_drivers/cupertino_app.dart';
 import 'core/platform_drivers/material_app.dart';
-
+//teste de duplo push
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
