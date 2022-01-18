@@ -52,7 +52,8 @@ class LoginViewMaterial extends StatelessWidget {
                         duration: Duration(milliseconds: 1000),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            image: Image(image: AssetImage(_properties.appLoginImgBtn)),
+                            image: Image(image: AssetImage(_properties.appLoginImgBtn))
+                            ,//<<<<<<<< erro
                             // borderRadius: BorderRadius.all(Radius.circular(100)),
                             // shape: BoxShape.rectangle,
                             // color: _controller.buttonColorObs.value,
