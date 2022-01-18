@@ -17,22 +17,19 @@ class Routes {
 
   static List<GetPage> appRoutes = [
     GetPage(
-      name: LOGIN_VIEW_URL,
-      page: () => Platform.isIOS ? LoginViewCupertino() : LoginViewMaterial(),
-      // page: () => Platform.isAndroid ? LoginViewCupertino() : LoginViewMaterial(),
-      bindings: [LoginBindings()],
-    ),
+        name: LOGIN_VIEW_URL,
+        page: () => Platform.isIOS ? LoginViewCupertino() : LoginViewMaterial(),
+        // page: () => Platform.isAndroid ? LoginViewCupertino() : LoginViewMaterial(),
+        bindings: [LoginBindings()]),
     GetPage(
-      name: ELEVATOR_LIST_URL,
-      page: () =>
-          Platform.isIOS ? ElevatorListViewCupertino() : ElevatorListViewMaterial(),
-      // Platform.isAndroid ? ElevatorListViewCupertino() : ElevatorListViewMaterial(),
-      bindings: [ElevatorListBindings()],
-    ),
+        name: ELEVATOR_LIST_URL,
+        page: () =>
+            Platform.isIOS ? ElevatorListViewCupertino() : ElevatorListViewMaterial(),
+        // Platform.isAndroid ? ElevatorListViewCupertino() : ElevatorListViewMaterial(),
+        bindings: [ElevatorListBindings()]),
     GetPage(
-      name: ELEVATOR_DETAIL_URL,
-      page: () => ElevatorDetailViewAdaptive(),
-      bindings: [ElevatorListBindings()],
-    ),
+        name: ELEVATOR_DETAIL_URL,
+        page: () => ElevatorDetailViewAdaptive(),
+        bindings: [ElevatorListBindings()]),
   ];
 }

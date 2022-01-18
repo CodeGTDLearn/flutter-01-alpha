@@ -12,7 +12,7 @@ class AnimatedTileMaterial implements IAnimatedListTile {
   final _properties = Get.find<Properties>();
 
   @override
-  Widget tile(Elevator elevator) {
+  Widget tile(Elevator elevator, [BuildContext? context]) {
     return OpenContainer(
         closedElevation: 0,
         transitionDuration: Duration(milliseconds: _properties.delayListTile),
@@ -20,7 +20,7 @@ class AnimatedTileMaterial implements IAnimatedListTile {
         openBuilder: (context, void Function({Object? returnValue}) openContainer) {
           return ElevatorDetailViewAdaptive(elevator: elevator);
         },
-        closedBuilder: (context, void Function() openContainer) {
+        closedBuilder: (_context, void Function() openContainer) {
           return Card(
               elevation: 5,
               margin: const EdgeInsets.fromLTRB(20, 10, 20, 7),

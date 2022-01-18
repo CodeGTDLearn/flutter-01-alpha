@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_service.dart';
@@ -14,14 +16,16 @@ class LoginController extends GetxController {
   final _emailController = TextEditingController();
   final _messages = Get.find<MessageLabels>();
   final _labels = Get.find<Labels>();
+  final _properties = Get.find<Properties>();
 
   var _buttonColorObs = Colors.orange.obs;
   var _buttonShadowBlurObs = 30.0.obs;
   var _buttonScaleObs = false.obs;
 
+
   @override
   void onInit() {
-    _emailController.text = "nicolas.genest@codeboxx.bizcc";
+    _emailController.text = "nicolas.genest@codeboxx.biz";
     super.onInit();
   }
 
@@ -62,10 +66,33 @@ class LoginController extends GetxController {
     });
   }
 
-  // void elevatorButtonAnimation({required MaterialColor color, required double blur}) {
-  //   _buttonColorObs.value = color;
-  //   _buttonShadowBlurObs.value = blur;
-  // }
+  void loginButtonAction(BuildContext context) {
+    // @formatter:off
+    var isValidEmail = emailValidation(context);
+    loginButtonAnimation(color: Colors.orange,blur: 0);
+
+    Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
+        .whenComplete(() {
+      if(!isValidEmail) loginButtonAnimation(color: Colors.red,blur: 30);
+      FocusScope.of(context).unfocus();
+      if (isValidEmail) {
+                    authentication(emailController.text.trim())
+            .then((isAuthenticed) =>
+        isAuthenticed
+            ? () {
+          loginButtonAnimation(color: Colors.green,blur: 30);
+          Future
+              .delayed(Duration(milliseconds: _properties.delayStatusElevator))
+              .whenComplete(() => Get.toNamed(Routes.ELEVATOR_LIST_URL));
+        }.call()
+            : () {
+          loginButtonAnimation(color: Colors.red,blur: 30);
+          Get.defaultDialog(title: _labels.ops, middleText:_messages.authFailContent);
+        }.call());
+      }
+    });
+    // @formatter:on
+  }
 
   get buttonShadowBlurObs => _buttonShadowBlurObs;
 

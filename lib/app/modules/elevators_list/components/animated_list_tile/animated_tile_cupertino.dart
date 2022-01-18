@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_detail_view_adaptive.dart';
 import 'package:get/instance_manager.dart';
-import 'package:get/route_manager.dart';
 
+import '../../elevator_list_controller.dart';
 import 'i_animated_tile.dart';
 
 class AnimatedTileCupertino implements IAnimatedListTile {
-  final _properties = Get.find<Properties>();
+  final _controller = Get.find<ElevatorListController>();
 
   @override
   Widget tile(Elevator elevator) {
@@ -27,7 +26,7 @@ class AnimatedTileCupertino implements IAnimatedListTile {
             trailing: Icon(CupertinoIcons.info),
           )),
       onTap: () => showCupertinoDialog(
-        context: _properties.contextGkey.currentContext,
+        context: _controller.elevatorListViewCupertinoContext,
         builder: (BuildContext context) {
           return CupertinoPopupSurface(
               child: ElevatorDetailViewAdaptive(elevator: elevator));

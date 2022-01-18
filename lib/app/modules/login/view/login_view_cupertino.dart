@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
-import 'package:flutter_01_alpha/app/core/routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
-import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
-import 'package:flutter_01_alpha/app/modules/login/components/email_form_field_cupertino.dart';
+import 'package:flutter_01_alpha/app/modules/login/components/email_form_field/email_form_field_cupertino.dart';
+import 'package:flutter_01_alpha/app/modules/login/components/login_button.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_controller.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
@@ -13,123 +12,44 @@ import 'package:get/state_manager.dart';
 class LoginViewCupertino extends StatelessWidget {
   final _labels = Get.find<Labels>();
   final _properties = Get.find<Properties>();
-  final _messages = Get.find<MessageLabels>();
   final _controller = Get.find<LoginController>();
 
   @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text(_properties.appTitle)),
-      resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromRGBO(240, 241, 247, 1),
-      child: SafeArea(
-        child: Center(
-            child: Column(children: [
-          Flexible(
-              flex: 2,
-              fit: FlexFit.tight,
-              child: Container(
-                  width: double.infinity,
-                  child: Image(image: AssetImage(_properties.appLogo)))),
-          Flexible(
-              flex: 3,
-              fit: FlexFit.tight,
-              child: Center(
-                  child: Form(
-                      key: _controller.loginFormKey,
-                      child: SingleChildScrollView(
-                          padding: const EdgeInsets.all(16),
-                          child: EmailFormFieldCupertino().field(
-                            _controller,
-                            hint: _labels.labelLoginFieldHint,
-                            iconPrefix: Icons.mail,
-                            // iconSufix: Icons.close,
-                          ))))),
-              Flexible(fit: FlexFit.tight, child: _loginButton(context)),
-          const Spacer(flex: 1)
-        ])),
-      ));
-
-  Container _loginButton(BuildContext context) {
-    var _responsiveHeight = MediaQuery.of(context).size.height * 0.12;
-    var _responsiveWidth = MediaQuery.of(context).size.width * 0.25;
-    return Container(
-      // color: Colors.green,
-        width: double.infinity,
-        alignment: Alignment.center,
-        child: GestureDetector(
-            child: Obx(
-                  () => AnimatedContainer(
-                duration: const Duration(milliseconds: 750),
-                alignment: Alignment.center,
-                curve: Curves.fastOutSlowIn,
-                height: _responsiveHeight,
-                width: _responsiveWidth,
-                transform: (_controller.buttonScaleObs.value
-                    ? (Matrix4.identity()
-                  ..translate(0.025 * _responsiveWidth,0.025 * _responsiveHeight)
-                  ..scale(0.95, 0.95))
-                    : Matrix4.identity()),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _controller.buttonColorObs.value,
-                    border: Border.all(color: _controller.buttonColorObs.value),
-                    boxShadow: [
-                      BoxShadow(
-                        color: _controller.buttonColorObs.value,
-                        blurRadius: _controller.buttonShadowBlurObs.value,
-                      ),
-                    ]),
-                child: Image(image: AssetImage(_properties.appLoginImgBtn)),
-              ),
-            ),
-            onTap: () => _loginButtonTriggerAction(context)));
+  Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height * 0.12;
+    var width = MediaQuery.of(context).size.width * 0.25;
+    return CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(middle: Text(_properties.appTitle)),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color.fromRGBO(240, 241, 247, 1),
+        child: SafeArea(
+          child: Center(
+              child: Column(children: [
+            Flexible(
+                flex: 2,
+                fit: FlexFit.tight,
+                child: Container(
+                    width: double.infinity,
+                    child: Image(image: AssetImage(_properties.appLogo)))),
+            Flexible(
+                flex: 3,
+                fit: FlexFit.tight,
+                child: Center(
+                    child: Form(
+                        key: _controller.loginFormKey,
+                        child: SingleChildScrollView(
+                            padding: const EdgeInsets.all(16),
+                            child: EmailFormFieldCupertino().field(
+                              _controller,
+                              hint: _labels.labelLoginFieldHint,
+                              iconPrefix: Icons.mail,
+                              // iconSufix: Icons.close,
+                            ))))),
+            Flexible(
+                fit: FlexFit.tight,
+                child: LoginButton().create(context, _controller, height, width)),
+            const Spacer(flex: 1)
+          ])),
+        ));
   }
-
-  void _loginButtonTriggerAction(BuildContext context) {
-    // @formatter:off
-    var isValidEmail = _controller.emailValidation(context);
-    _controller.loginButtonAnimation(color: Colors.orange,blur: 0);
-
-    Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
-        .whenComplete(() {
-      if(!isValidEmail) _controller.loginButtonAnimation(color: Colors.red,blur: 30);
-      FocusScope.of(context).unfocus();
-      if (isValidEmail) {
-        _controller
-            .authentication(_controller.emailController.text.trim())
-            .then((isAuthenticed) =>
-        isAuthenticed
-            ? () {
-          _controller.loginButtonAnimation(color: Colors.green,blur: 30);
-          Future
-              .delayed(Duration(milliseconds: _properties.delayStatusElevator))
-              .whenComplete(() => Get.toNamed(Routes.ELEVATOR_LIST_URL));
-        }.call()
-            : () {
-          _controller.loginButtonAnimation(color: Colors.red,blur: 30);
-          Get.defaultDialog(title: _labels.ops, middleText:_messages.authFailContent);
-        }.call());
-      }
-    });
-    // @formatter:on
-  }
-
-  // void _triggerButtonAction(BuildContext context) {
-  //   var checkEmail = _controller.emailValidation(context);
-  //   FocusScope.of(context).unfocus();
-  //   if (checkEmail) {
-  //     var checkEmail = _controller.emailValidation(context);
-  //     FocusScope.of(context).unfocus();
-  //     if (checkEmail) {
-  //       _controller
-  //           .authentication(_controller.emailController.text.trim())
-  //           .then((value) => value
-  //               ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
-  //               : Get.defaultDialog(
-  //                   title: _labels.ops,
-  //                   middleText: _messages.authFailContent,
-  //                 ));
-  //     }
-  //   }
-  // }
 }

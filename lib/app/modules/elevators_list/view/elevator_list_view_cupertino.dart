@@ -20,10 +20,12 @@ class ElevatorListViewCupertino extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _controller.elevatorListViewCupertinoContext = context;
     return CupertinoPageScaffold(
         // navigationBar: CupertinoNavigationBar(middle: Text(_labels.elevListTitle)),
         child: Obx(() => (_controller.notOnlineStatusObs.toList().isEmpty
-            ? TimerMessageIndicator.message(message: _messages.dbElevatorsEmpty, fontSize: 20)
+            ? TimerMessageIndicator.message(
+                message: _messages.dbElevatorsEmpty, fontSize: 20)
             : FutureBuilder(
                 future: _controller.getNotonlineElevators(),
                 builder: (c, snap) {
@@ -44,7 +46,7 @@ class ElevatorListViewCupertino extends StatelessWidget {
           _sliverAppbar.create(
             _labels.elevListTitle,
             trailingIcon: CupertinoIcons.square_arrow_left,
-            trailingFunction: () => Get.back,
+            trailingFunction: () => Get.back.call(),
           ),
           SliverListview().elevators(_controller.notOnlineStatusObs.toList()),
         ],

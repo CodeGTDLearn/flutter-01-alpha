@@ -22,17 +22,12 @@ class SliverAppBarCupertino implements IAdaptiveSliverAppBar {
       largeTitle: Text(_labels.large_title),
       middle: Text(title),
       automaticallyImplyLeading: false,
-      trailing: trailingIcon == null
+      trailing: trailingFunction == null
           ? null
           : CupertinoButton(
               child: Icon(trailingIcon),
-              onPressed: () => trailingFunction!.call(),
+              onPressed: () => trailingFunction.call(),
             ),
-      // key: Key(_keys.k_sliver_appbar()),
-      // leading: isBackTapNull ? null : CupertinoButton(
-      //   child: const Icon(Icons.home),
-      //   onPressed: () {},
-      // ),
     );
   }
 }

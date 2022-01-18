@@ -32,7 +32,7 @@ class ElevatorListViewMaterial extends StatelessWidget {
                         _sliverAppbar.create(
                           _labels.elevListTitle,
                           trailingIcon: Icons.logout,
-                          trailingFunction: Get.back,
+                          trailingFunction: () => Get.back.call(),
                         ),
                         SliverListview()
                             .elevators(_controller.notOnlineStatusObs.toList()),

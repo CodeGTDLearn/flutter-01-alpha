@@ -21,27 +21,10 @@ class SliverAppBarMaterial implements IAdaptiveSliverAppBar {
           padding: const EdgeInsets.only(right: 20.0),
           child: GestureDetector(
             child: Icon(trailingIcon),
-            onTap: () => trailingFunction,
+            onTap: () => trailingFunction!.call(),
           ),
         )
       ],
-      // trailingIcon == null
-      //     ? null
-      //     : [
-      //         Padding(
-      //           padding: const EdgeInsets.only(right: 20.0),
-      //           child: GestureDetector(
-      //             child: Icon(trailingIcon),
-      //             onTap: () => trailingFunction,
-      //           ),
-      //         )
-      //       ],
-      // key: Key(_keys.k_sliver_appbar()),
-      // floating: true,
-      // leading: GestureDetector(
-      //   onTap: () => backTapFunction.call(),
-      //   child: Icon(icon),
-      // )
     );
   }
 }
