@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
@@ -17,45 +14,64 @@ class LoginViewMaterial extends StatelessWidget {
   final _properties = Get.find<Properties>();
   final _messages = Get.find<MessageLabels>();
   final _controller = Get.find<LoginController>();
-  final _modal = Get.find<IAdaptiveModal>(tag: Platform.operatingSystem);
 
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text(_properties.appTitle)),
       body: SafeArea(
-        child: Center(
-            child: Column(children: [
-          Flexible(
-              fit: FlexFit.tight,
-              child: Container(
-                  width: double.infinity,
-                  child: Image(image: AssetImage(_properties.appLogo)))),
-          Flexible(
-              fit: FlexFit.tight,
-              child: Form(
-                  key: _controller.loginFormKey,
-                  child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
-                      child: EmailFormFieldMaterial().field(
-                        _controller,
-                        hint: _labels.labelLoginFieldHint,
-                        iconPrefix: Icons.mail,
-                        iconSufix: Icons.close,
-                      )))),
-          Flexible(
-              fit: FlexFit.tight,
-              child: Container(
-                  color: Colors.red,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: InkWell(
-                      child: Image(image: AssetImage(_properties.appLoginImgBtn)),
-                      onTap: () => _triggerButtonAction(context))))
-        ])),
-      ));
+          child: Center(
+              child: Column(children: [
+        Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+                width: double.infinity,
+                child: Image(image: AssetImage(_properties.appLogo)))),
+        Flexible(
+            fit: FlexFit.tight,
+            child: Form(
+                key: _controller.loginFormKey,
+                child: SingleChildScrollView(
+                    padding: EdgeInsets.all(16),
+                    child: EmailFormFieldMaterial().field(
+                      _controller,
+                      hint: _labels.labelLoginFieldHint,
+                      iconPrefix: Icons.mail,
+                      iconSufix: Icons.close,
+                    )))),
+        Flexible(
+            fit: FlexFit.tight,
+            child: Container(
+                color: Colors.transparent,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: InkWell(
+                    child: Obx(
+                      () => AnimatedContainer(
+                        alignment: Alignment.center,
+                        curve: Curves.ease,
+                        duration: Duration(milliseconds: 1000),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: Image(image: AssetImage(_properties.appLoginImgBtn)),
+                            // borderRadius: BorderRadius.all(Radius.circular(100)),
+                            // shape: BoxShape.rectangle,
+                            // color: _controller.buttonColorObs.value,
+                            // border: Border.all(color: Colors.grey),
+                            // borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: _controller.buttonColorObs.value,
+                                  blurRadius: _controller.buttonShadowBlurObs.value)
+                            ]),
+                        // child: Image(image: AssetImage(_properties.appLoginImgBtn)),
+                      ),
+                    ),
+                    onTap: () => _triggerButtonAction(context))))
+      ]))));
 
   void _triggerButtonAction(BuildContext context) {
     // @formatter:off
+    _controller.elevatorButtonAnimation(color: Colors.grey,blur: 30);
     var checkEmail = _controller.emailValidation(context);
     FocusScope.of(context).unfocus();
     if (checkEmail) {

@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
@@ -13,6 +14,10 @@ class LoginController extends GetxController {
   final emailController = TextEditingController();
   final _messages = Get.find<MessageLabels>();
   final _labels = Get.find<Labels>();
+
+  var buttonColorObs = Colors.transparent.obs;
+  var buttonShadowBlurObs = 0.0.obs;
+  var buttonLabelStatusObs = "Not-Online".obs;
 
 
   @override
@@ -56,5 +61,10 @@ class LoginController extends GetxController {
         emailController.clear();
       });
     }
+  }
+
+  void elevatorButtonAnimation({required MaterialColor color, required double blur}) {
+    buttonColorObs.value = color;
+    buttonShadowBlurObs.value = blur;
   }
 }

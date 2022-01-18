@@ -10,7 +10,7 @@ import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../elevator_controller.dart';
+import '../elevator_list_controller.dart';
 
 class ElevatorListViewCupertino extends StatelessWidget {
   final _labels = Get.find<Labels>();

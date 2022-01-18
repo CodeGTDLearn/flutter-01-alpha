@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:animated_neumorphic/animated_neumorphic.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
@@ -11,7 +13,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../elevator_controller.dart';
+import '../elevator_list_controller.dart';
 
 class ElevatorDetailViewAdaptive extends StatelessWidget {
   Elevator? elevator;
@@ -27,23 +29,25 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     elevator ?? Get.arguments();
-    _controller.elevatorStatusObs.value = elevator!.status;
+    _controller.buttonLabelStatusObs.value = elevator!.status;
 
     return PlatformScaffold(
         appBar: PlatformAppBar(title: Text("Elevator ID: ${elevator!.id.toString()}")),
         body: Center(
             child: Column(children: [
-          Flexible(fit: FlexFit.tight, child: _elevatorInfoCard()),
+          Flexible(fit: FlexFit.tight, child: _elevatorInfoPanel()),
           Flexible(
               fit: FlexFit.tight,
               child: Container(
                   alignment: Alignment.center,
+                  color: Colors.transparent,
                   child: Obx(
-                    () => InkWell(
-                        child: _button(),
-                        onTap: () {
-                          _adaptiveModalConfirmation(context);
-                        }),
+                    () => GestureDetector(
+                      child: _animatedContainerStatusButton(context),
+                      onTap: () async {
+                        await _triggerChangeStatus(context);
+                      },
+                    ),
                   )))
         ])));
   }
@@ -62,38 +66,51 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
           if (elevatorStatus == 'error') _updateFail();
         });
       },
-      () => Get.back(),
+      () {
+        _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 0);
+        Get.back();
+        // _controller.buttonColorObs.value == Colors.red;
+        // _controller.buttonShadowBlurObs.value == 0;
+      },
     );
   }
 
-  Container _button() {
-    return Container(
-        margin: EdgeInsets.all(20),
-        height: 100,
-        width: double.infinity,
+  AnimatedContainer _animatedContainerStatusButton(context) {
+    return AnimatedContainer(
+        duration: const Duration(milliseconds: 1000),
+        margin: const EdgeInsets.all(20),
+        height: MediaQuery.of(context).size.height * 0.12,
+        width: MediaQuery.of(context).size.width * 0.85,
         alignment: Alignment.center,
-        child: Text(_controller.elevatorStatusObs.value,
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-              textStyle: const TextStyle(
-                fontSize: 50,
-                // fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            )),
+        curve: Curves.ease,
         decoration: BoxDecoration(
-            color: _controller.elevatorStatusObs.value == 'online'
-                ? Colors.green
-                : Colors.red,
-            border: Border.all(
-              color: Colors.transparent,
-            ),
+            shape: BoxShape.rectangle,
+            color: _controller.buttonColorObs.value,
+            border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(12),
-            boxShadow: [_boxShadow()]));
+            boxShadow: [
+              BoxShadow(
+                  color: _controller.buttonColorObs.value,
+                  blurRadius: _controller.buttonShadowBlurObs.value)
+            ]),
+        child: DefaultTextStyle(
+            style: GoogleFonts.roboto(
+                textStyle: const TextStyle(fontSize: 50, color: Colors.white)),
+            child: AnimatedTextKit(
+                totalRepeatCount: 20,
+                animatedTexts: [
+                  RotateAnimatedText(_controller.buttonLabelStatusObs.value)
+                ],
+                onTap: () async => await _triggerChangeStatus(context))));
   }
 
-  Container _elevatorInfoCard() {
+  Future<void> _triggerChangeStatus(context) async {
+    _controller.elevatorStatusButtonAnimation(color: Colors.green, blur: 30);
+    await Future.delayed(Duration(milliseconds: 1000));
+    _adaptiveModalConfirmation(context);
+  }
+
+  Container _elevatorInfoPanel() {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(30),
@@ -114,27 +131,32 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
             color: Colors.white,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [_boxShadow()]),
+          boxShadow: const [
+            BoxShadow(
+                color: Colors.grey,
+                spreadRadius: 3,
+                offset: Offset(1.0, 1.0),
+                blurRadius: 5.0)
+          ]),
     );
   }
 
   Widget _richTextLine(String label, String content) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: RichText(
-          text: TextSpan(
-              text: label,
-              style: GoogleFonts.lato(
-                  textStyle: const TextStyle(
-                      color: Colors.blue, fontSize: 25, fontWeight: FontWeight.bold)),
-              children: <TextSpan>[
-            TextSpan(
-                text: content,
+        padding: const EdgeInsets.only(bottom: 20.0),
+        child: RichText(
+            text: TextSpan(
+                text: label,
                 style: GoogleFonts.lato(
                     textStyle: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold, color: Colors.red)))
-          ])),
-    );
+                        color: Colors.blue, fontSize: 25, fontWeight: FontWeight.bold)),
+                children: <TextSpan>[
+              TextSpan(
+                  text: content,
+                  style: GoogleFonts.lato(
+                      textStyle: const TextStyle(
+                          fontSize: 25, fontWeight: FontWeight.bold, color: Colors.red)))
+            ])));
   }
 
   void _updateFail() {
@@ -147,36 +169,45 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
     Get.back();
     elevator!.status = elevatorStatus;
     await Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
+        .then((value) =>
+            _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 0))
         .whenComplete(() => Get.back());
   }
 
-  BoxShadow _boxShadow() => BoxShadow(
-        color: Colors.grey,
-        spreadRadius: 3,
-        offset: Offset(1.0, 1.0),
-        blurRadius: 5.0,
-      );
+  Widget _neumorphicButton({
+    required Color color,
+    required child,
+    double depth = 1.0,
+    double width = 60.0,
+    double height = 60.0,
+    double radius = 16.0,
+    // int milliseconds = 500,
+  }) {
+    return GestureDetector(
+      onTap: () =>
+          _controller.neum_isActiveObs.value = !_controller.neum_isActiveObs.value,
+      child: AnimatedNeumorphicContainer(
+        duration: Duration(milliseconds: 500),
+        depth: _controller.neum_isActiveObs.value ? 0.0 : depth,
+        color: color,
+        width: width,
+        height: height,
+        radius: radius,
+        child: child,
+      ),
+    );
+  }
+// _neumorphicButton(
+//     depth: 0.1,
+//     color: _controller.buttonColorObs.value,
+//     height: MediaQuery.of(context).size.height * 0.12,
+//     width: MediaQuery.of(context).size.width * 0.85,
+//     child: Center(
+//       child: Text(_controller.buttonLabelStatusObs.value,
+//           softWrap: true,
+//           textAlign: TextAlign.center,
+//           style: GoogleFonts.roboto(
+//               textStyle: const TextStyle(
+//                   fontSize: 50, color: Colors.white))),
+//     ))
 }
-// @override
-// Widget build(BuildContext context) {
-//   _controller.elevatorStatusObs.value = _elevator.status;
-//
-//   return Scaffold(
-//       appBar: AppBar(
-//           title: Text("Elevator ID: ${_elevator.id.toString()}"), centerTitle: true),
-//       body: Center(
-//           child: Column(children: [
-//         Flexible(fit: FlexFit.tight, child: _infoListCard()),
-//         Flexible(
-//             fit: FlexFit.tight,
-//             child: Container(
-//                 alignment: Alignment.center,
-//                 child: Obx(
-//                   () => InkWell(
-//                       child: _button(),
-//                       onTap: () {
-//                         _modalConfirmation(context);
-//                       }),
-//                 )))
-//       ])));
-// }

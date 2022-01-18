@@ -1,14 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 
-import 'elevator_service.dart';
+import 'elevator_list_service.dart';
 import 'entity/elevator.dart';
 
 class ElevatorListController extends GetxController {
   final service = Get.find<ElevatorListService>();
 
   var notOnlineElevatorsObs = <Elevator>[].obs;
-  var elevatorStatusObs = "Not-Online".obs;
+  //
+  var buttonColorObs = Colors.red.obs;
+  var buttonShadowBlurObs = 0.0.obs;
+  var buttonLabelStatusObs = "Not-Online".obs;
+
+  var neum_isActiveObs = false.obs;
 
   @override
   void onInit() {
@@ -20,7 +26,7 @@ class ElevatorListController extends GetxController {
       if (elevatorStatus == 'online') {
         var index = notOnlineElevatorsObs.indexWhere((item) => item.id.toString() == id);
         notOnlineElevatorsObs.removeAt(index);
-        elevatorStatusObs.value = elevatorStatus;
+        buttonLabelStatusObs.value = elevatorStatus;
         return elevatorStatus;
       }
       return elevatorStatus;
@@ -31,5 +37,10 @@ class ElevatorListController extends GetxController {
     return service
         .getNotonlineElevators()
         .then((elevatorList) => notOnlineElevatorsObs.value = elevatorList);
+  }
+
+  void elevatorStatusButtonAnimation({required MaterialColor color, required double blur}) {
+    buttonColorObs.value = color;
+    buttonShadowBlurObs.value = blur;
   }
 }

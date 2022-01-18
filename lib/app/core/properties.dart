@@ -15,7 +15,7 @@ class Properties {
   final int _CUSTOM_PROGRESS_INDICICATOR_DELAY = 2;
   final int _DELAY_MILLISEC_LISTVIEW = 600;
   final int _DELAY_MILLISEC_LISTTILE = 600;
-  final int _DELAY_MILLISEC_STATUS_ELEVATOR = 2000;
+  final int _DELAY_MILLISEC_STATUS_ELEVATOR = 3000;
   final double _VERTICAL_OFFSET_LISTVIEW = 300.0;
   final localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     DefaultMaterialLocalizations.delegate,
