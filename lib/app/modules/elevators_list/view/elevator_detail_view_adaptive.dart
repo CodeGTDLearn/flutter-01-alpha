@@ -179,41 +179,4 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
       _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 15);
     });
   }
-
-  Widget _neumorphicButton({
-    required Color color,
-    required child,
-    double depth = 1.0,
-    double width = 60.0,
-    double height = 60.0,
-    double radius = 16.0,
-    // int milliseconds = 500,
-  }) {
-    return GestureDetector(
-      onTap: () =>
-          _controller.neum_isActiveObs.value = !_controller.neum_isActiveObs.value,
-      child: AnimatedNeumorphicContainer(
-        duration: Duration(milliseconds: 500),
-        depth: _controller.neum_isActiveObs.value ? 0.0 : depth,
-        color: color,
-        width: width,
-        height: height,
-        radius: radius,
-        child: child,
-      ),
-    );
-  }
-// _neumorphicButton(
-//     depth: 0.1,
-//     color: _controller.buttonColorObs.value,
-//     height: MediaQuery.of(context).size.height * 0.12,
-//     width: MediaQuery.of(context).size.width * 0.85,
-//     child: Center(
-//       child: Text(_controller.buttonLabelStatusObs.value,
-//           softWrap: true,
-//           textAlign: TextAlign.center,
-//           style: GoogleFonts.roboto(
-//               textStyle: const TextStyle(
-//                   fontSize: 50, color: Colors.white))),
-//     ))
 }
