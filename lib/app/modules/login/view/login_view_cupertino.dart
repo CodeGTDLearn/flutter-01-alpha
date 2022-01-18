@@ -8,6 +8,7 @@ import 'package:flutter_01_alpha/app/modules/login/components/email_form_field_c
 import 'package:flutter_01_alpha/app/modules/login/login_controller.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
+import 'package:get/state_manager.dart';
 
 class LoginViewCupertino extends StatelessWidget {
   final _labels = Get.find<Labels>();
@@ -43,36 +44,92 @@ class LoginViewCupertino extends StatelessWidget {
                             iconPrefix: Icons.mail,
                             // iconSufix: Icons.close,
                           ))))),
-          Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                      onTap: () => _triggerButtonAction(context),
-                      customBorder: const CircleBorder(),
-                      child: Image(image: AssetImage(_properties.appLoginImgBtn)),
-                      splashColor: Colors.grey))),
+              Flexible(fit: FlexFit.tight, child: _loginButton(context)),
           const Spacer(flex: 1)
         ])),
       ));
 
-  void _triggerButtonAction(BuildContext context) {
-    var checkEmail = _controller.emailValidation(context);
-    FocusScope.of(context).unfocus();
-    if (checkEmail) {
-      var checkEmail = _controller.emailValidation(context);
+  Container _loginButton(BuildContext context) {
+    var _responsiveHeight = MediaQuery.of(context).size.height * 0.12;
+    var _responsiveWidth = MediaQuery.of(context).size.width * 0.25;
+    return Container(
+      // color: Colors.green,
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: GestureDetector(
+            child: Obx(
+                  () => AnimatedContainer(
+                duration: const Duration(milliseconds: 750),
+                alignment: Alignment.center,
+                curve: Curves.fastOutSlowIn,
+                height: _responsiveHeight,
+                width: _responsiveWidth,
+                transform: (_controller.buttonScaleObs.value
+                    ? (Matrix4.identity()
+                  ..translate(0.025 * _responsiveWidth,0.025 * _responsiveHeight)
+                  ..scale(0.95, 0.95))
+                    : Matrix4.identity()),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _controller.buttonColorObs.value,
+                    border: Border.all(color: _controller.buttonColorObs.value),
+                    boxShadow: [
+                      BoxShadow(
+                        color: _controller.buttonColorObs.value,
+                        blurRadius: _controller.buttonShadowBlurObs.value,
+                      ),
+                    ]),
+                child: Image(image: AssetImage(_properties.appLoginImgBtn)),
+              ),
+            ),
+            onTap: () => _loginButtonTriggerAction(context)));
+  }
+
+  void _loginButtonTriggerAction(BuildContext context) {
+    // @formatter:off
+    var isValidEmail = _controller.emailValidation(context);
+    _controller.loginButtonAnimation(color: Colors.orange,blur: 0);
+
+    Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
+        .whenComplete(() {
+      if(!isValidEmail) _controller.loginButtonAnimation(color: Colors.red,blur: 30);
       FocusScope.of(context).unfocus();
-      if (checkEmail) {
+      if (isValidEmail) {
         _controller
             .authentication(_controller.emailController.text.trim())
-            .then((value) => value
-                ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
-                : Get.defaultDialog(
-                    title: _labels.ops,
-                    middleText: _messages.authFailContent,
-                  ));
+            .then((isAuthenticed) =>
+        isAuthenticed
+            ? () {
+          _controller.loginButtonAnimation(color: Colors.green,blur: 30);
+          Future
+              .delayed(Duration(milliseconds: _properties.delayStatusElevator))
+              .whenComplete(() => Get.toNamed(Routes.ELEVATOR_LIST_URL));
+        }.call()
+            : () {
+          _controller.loginButtonAnimation(color: Colors.red,blur: 30);
+          Get.defaultDialog(title: _labels.ops, middleText:_messages.authFailContent);
+        }.call());
       }
-    }
+    });
+    // @formatter:on
   }
+
+  // void _triggerButtonAction(BuildContext context) {
+  //   var checkEmail = _controller.emailValidation(context);
+  //   FocusScope.of(context).unfocus();
+  //   if (checkEmail) {
+  //     var checkEmail = _controller.emailValidation(context);
+  //     FocusScope.of(context).unfocus();
+  //     if (checkEmail) {
+  //       _controller
+  //           .authentication(_controller.emailController.text.trim())
+  //           .then((value) => value
+  //               ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
+  //               : Get.defaultDialog(
+  //                   title: _labels.ops,
+  //                   middleText: _messages.authFailContent,
+  //                 ));
+  //     }
+  //   }
+  // }
 }

@@ -6,13 +6,14 @@ import 'elevator_list_service.dart';
 import 'entity/elevator.dart';
 
 class ElevatorListController extends GetxController {
-  final service = Get.find<ElevatorListService>();
+  final _service = Get.find<ElevatorListService>();
 
-  var notOnlineElevatorsObs = <Elevator>[].obs;
-  //
-  var buttonColorObs = Colors.red.obs;
-  var buttonShadowBlurObs = 0.0.obs;
-  var buttonLabelStatusObs = "Not-Online".obs;
+  var _notOnlineStatusObs = <Elevator>[].obs;
+
+  var _buttonLabelStatusObs = "Not-Online".obs;
+  var _buttonColorObs = Colors.red.obs;
+  var _buttonShadowBlurObs = 15.0.obs;
+  var _buttonScaleObs = false.obs;
 
   var neum_isActiveObs = false.obs;
 
@@ -22,10 +23,10 @@ class ElevatorListController extends GetxController {
   }
 
   Future<String> updateElevatorStatus(String id) {
-    return service.updateElevatorStatus(id).then((elevatorStatus) {
+    return _service.updateElevatorStatus(id).then((elevatorStatus) {
       if (elevatorStatus == 'online') {
-        var index = notOnlineElevatorsObs.indexWhere((item) => item.id.toString() == id);
-        notOnlineElevatorsObs.removeAt(index);
+        var index = _notOnlineStatusObs.indexWhere((item) => item.id.toString() == id);
+        _notOnlineStatusObs.removeAt(index);
         buttonLabelStatusObs.value = elevatorStatus;
         return elevatorStatus;
       }
@@ -34,13 +35,25 @@ class ElevatorListController extends GetxController {
   }
 
   Future<List<Elevator>> getNotonlineElevators() {
-    return service
+    return _service
         .getNotonlineElevators()
-        .then((elevatorList) => notOnlineElevatorsObs.value = elevatorList);
+        .then((elevatorList) => _notOnlineStatusObs.value = elevatorList);
   }
 
-  void elevatorStatusButtonAnimation({required MaterialColor color, required double blur}) {
-    buttonColorObs.value = color;
-    buttonShadowBlurObs.value = blur;
+  void elevatorStatusButtonAnimation(
+      {required MaterialColor color, required double blur}) {
+    _buttonColorObs.value = color;
+    _buttonShadowBlurObs.value = blur;
+    _buttonScaleObs.value = !_buttonScaleObs.value;
   }
+
+  get buttonColorObs => _buttonColorObs;
+
+  get buttonShadowBlurObs => _buttonShadowBlurObs;
+
+  get buttonLabelStatusObs => _buttonLabelStatusObs;
+
+  get buttonScaleObs => _buttonScaleObs;
+
+  get notOnlineStatusObs => _notOnlineStatusObs;
 }

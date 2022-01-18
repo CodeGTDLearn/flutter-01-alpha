@@ -9,27 +9,25 @@ import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 class LoginController extends GetxController {
-  final service = Get.find<LoginService>();
-  final loginFormKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final _service = Get.find<LoginService>();
+  final _loginFormKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
   final _messages = Get.find<MessageLabels>();
   final _labels = Get.find<Labels>();
 
-  var buttonColorObs = Colors.transparent.obs;
-  var buttonShadowBlurObs = 0.0.obs;
-  var buttonLabelStatusObs = "Not-Online".obs;
-
+  var _buttonColorObs = Colors.orange.obs;
+  var _buttonShadowBlurObs = 30.0.obs;
+  var _buttonScaleObs = false.obs;
 
   @override
   void onInit() {
-     emailController.text = "nicolas.genest@codeboxx.biz";
+    _emailController.text = "nicolas.genest@codeboxx.bizcc";
     super.onInit();
   }
 
-
   @override
   void onClose() {
-    emailController.dispose();
+    _emailController.dispose();
     super.onClose();
   }
 
@@ -46,25 +44,36 @@ class LoginController extends GetxController {
     return false;
   }
 
-  Future<bool> authentication(String email) {
-    return service.authentication(email);
+  void loginButtonAnimation(
+      {required MaterialColor color, required double blur}) {
+    _buttonColorObs.value = color;
+    _buttonShadowBlurObs.value = blur;
+    _buttonScaleObs.value = !_buttonScaleObs.value;
   }
+
+  Future<bool> authentication(String email) => _service.authentication(email);
 
   void loginStatusSnackbar() {
-    if (loginFormKey.currentState!.validate()) {
-      authentication(emailController.text).then((auth) {
-        if (auth) {
-          Get.snackbar(_labels.sucess, _messages.emailLoginSucess);
-        } else {
-          Get.snackbar(_labels.ops, _messages.emailFormatField);
-        }
-        emailController.clear();
-      });
-    }
+    var valid = loginFormKey.currentState!.validate();
+    authentication(_emailController.text).then((auth) {
+      if (valid && auth) Get.snackbar(_labels.sucess, _messages.emailLoginSucess);
+      if (valid && !auth) Get.snackbar(_labels.ops, _messages.emailFormatField);
+      _emailController.clear();
+    });
   }
 
-  void elevatorButtonAnimation({required MaterialColor color, required double blur}) {
-    buttonColorObs.value = color;
-    buttonShadowBlurObs.value = blur;
-  }
+  // void elevatorButtonAnimation({required MaterialColor color, required double blur}) {
+  //   _buttonColorObs.value = color;
+  //   _buttonShadowBlurObs.value = blur;
+  // }
+
+  get buttonShadowBlurObs => _buttonShadowBlurObs;
+
+  get buttonColorObs => _buttonColorObs;
+
+  get loginFormKey => _loginFormKey;
+
+  get emailController => _emailController;
+
+  get buttonScaleObs => _buttonScaleObs;
 }

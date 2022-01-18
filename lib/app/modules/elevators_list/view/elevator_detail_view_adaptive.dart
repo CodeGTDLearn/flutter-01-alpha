@@ -35,24 +35,19 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
         appBar: PlatformAppBar(title: Text("Elevator ID: ${elevator!.id.toString()}")),
         body: Center(
             child: Column(children: [
-          Flexible(fit: FlexFit.tight, child: _elevatorInfoPanel()),
+          Flexible(fit: FlexFit.tight, child: _elevatorDetailsPanel()),
           Flexible(
               fit: FlexFit.tight,
               child: Container(
                   alignment: Alignment.center,
                   color: Colors.transparent,
-                  child: Obx(
-                    () => GestureDetector(
-                      child: _animatedContainerStatusButton(context),
-                      onTap: () async {
-                        await _triggerChangeStatus(context);
-                      },
-                    ),
-                  )))
+                  child: Obx(() => GestureDetector(
+                      child: _elevatorStatusButton(context),
+                      onTap: () async => await _changingElevatorStatus(context)))))
         ])));
   }
 
-  Future<void> _adaptiveModalConfirmation(context) async {
+  Future<void> _modalToConfirmElevatorStatusChange(context) async {
     return _modal.create(
       context,
       _messages.confirmation,
@@ -61,13 +56,13 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
       () async {
         await _controller
             .updateElevatorStatus(elevator!.id.toString())
-            .then((elevatorStatus) async {
-          if (elevatorStatus == 'online') await _updateSucess(elevatorStatus);
-          if (elevatorStatus == 'error') _updateFail();
+            .then((status) async {
+          if (status == 'online') await _elevatorUpdateSucessClosingTheModal(status);
+          if (status == 'error') _elevatorUpdateFailingImpedingTheElevatorUpdate();
         });
       },
       () {
-        _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 0);
+        _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 15);
         Get.back();
         // _controller.buttonColorObs.value == Colors.red;
         // _controller.buttonShadowBlurObs.value == 0;
@@ -75,14 +70,23 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
     );
   }
 
-  AnimatedContainer _animatedContainerStatusButton(context) {
+  AnimatedContainer _elevatorStatusButton(context) {
+    var _responsiveHeight = MediaQuery.of(context).size.height * 0.12;
+    var _responsiveWidth = MediaQuery.of(context).size.width * 0.85;
     return AnimatedContainer(
         duration: const Duration(milliseconds: 1000),
         margin: const EdgeInsets.all(20),
-        height: MediaQuery.of(context).size.height * 0.12,
-        width: MediaQuery.of(context).size.width * 0.85,
         alignment: Alignment.center,
         curve: Curves.ease,
+        height: _responsiveHeight,
+        width: _responsiveWidth,
+        transform: (_controller.buttonScaleObs.value
+            ? (Matrix4.identity()
+              ..translate(0.025 * _responsiveWidth,
+                  0.025 * _responsiveHeight) // translate towards right and down
+              ..scale(0.95,
+                  0.95)) // scale with to 95% anchorred at topleft of the AnimatedContainer
+            : Matrix4.identity()),
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: _controller.buttonColorObs.value,
@@ -101,16 +105,16 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
                 animatedTexts: [
                   RotateAnimatedText(_controller.buttonLabelStatusObs.value)
                 ],
-                onTap: () async => await _triggerChangeStatus(context))));
+                onTap: () async => await _changingElevatorStatus(context))));
   }
 
-  Future<void> _triggerChangeStatus(context) async {
-    _controller.elevatorStatusButtonAnimation(color: Colors.green, blur: 30);
-    await Future.delayed(Duration(milliseconds: 1000));
-    _adaptiveModalConfirmation(context);
+  Future<void> _changingElevatorStatus(context) async {
+    _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 0);
+    await Future.delayed(const Duration(milliseconds: 1000));
+    _modalToConfirmElevatorStatusChange(context);
   }
 
-  Container _elevatorInfoPanel() {
+  Container _elevatorDetailsPanel() {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(30),
@@ -159,19 +163,21 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
             ])));
   }
 
-  void _updateFail() {
+  void _elevatorUpdateFailingImpedingTheElevatorUpdate() {
     Get.back();
     Get.snackbar(_labels.ops, _messages.errorUpdateTryAgain,
         backgroundColor: Colors.red, colorText: Colors.white);
   }
 
-  Future<void> _updateSucess(String elevatorStatus) async {
-    Get.back();
+  Future<void> _elevatorUpdateSucessClosingTheModal(String elevatorStatus) async {
+    Get.back(); // close modal
     elevator!.status = elevatorStatus;
+    _controller.elevatorStatusButtonAnimation(color: Colors.green, blur: 15);
     await Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
-        .then((value) =>
-            _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 0))
-        .whenComplete(() => Get.back());
+        .whenComplete(() {
+      Get.back();
+      _controller.elevatorStatusButtonAnimation(color: Colors.red, blur: 15);
+    });
   }
 
   Widget _neumorphicButton({

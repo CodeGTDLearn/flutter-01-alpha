@@ -4,8 +4,7 @@ import 'package:flutter/widgets.dart';
 
 class Properties {
   final String _APP_NAME = "Rocket Elevators";
-  final String _APP_LOGIN_IMAGE_BUTTON = "assets/elevator-btn.png";
-  // final String _APP_LOGIN_IMAGE_BUTTON = "assets/test-img.png";
+  final String _APP_LOGIN_IMAGE_BUTTON = "assets/elevator-btn-2.png";
   final String _APP_TITLE = 'Rocket Elevators Mobile';
   final String _API_ROOT_URL = "https://jt-rocket-rest-api.herokuapp.com";
   final String _API_EMPLOYEE_ENDPOINT = "/api/employees";

@@ -18,8 +18,8 @@ class Routes {
   static List<GetPage> appRoutes = [
     GetPage(
       name: LOGIN_VIEW_URL,
-      page: () => Platform.isIOS ? LoginViewCupertino() : LoginViewMaterial(),
-      // page: () => Platform.isAndroid ? LoginViewCupertino() : LoginViewMaterial(),
+      // page: () => Platform.isIOS ? LoginViewCupertino() : LoginViewMaterial(),
+      page: () => Platform.isAndroid ? LoginViewCupertino() : LoginViewMaterial(),
       bindings: [
         LoginBindings(),
       ],

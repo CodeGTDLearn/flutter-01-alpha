@@ -21,12 +21,12 @@ class ElevatorListViewMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Obx(() => (_controller.notOnlineElevatorsObs.toList().isEmpty
+        body: Obx(() => (_controller.notOnlineStatusObs.toList().isEmpty
             ? TimerMessageIndicator.message(
                 message: _messages.dbElevatorsEmpty, fontSize: 20)
             : RefreshIndicator(
                 onRefresh: _controller.getNotonlineElevators,
-                child: _controller.notOnlineElevatorsObs.toList().isEmpty
+                child: _controller.notOnlineStatusObs.toList().isEmpty
                     ? Center(child: Text(_messages.elevetorNotFoundYet))
                     : CustomScrollView(slivers: [
                         _sliverAppbar.create(
@@ -35,7 +35,7 @@ class ElevatorListViewMaterial extends StatelessWidget {
                           trailingFunction: Get.back,
                         ),
                         SliverListview()
-                            .elevators(_controller.notOnlineElevatorsObs.toList()),
+                            .elevators(_controller.notOnlineStatusObs.toList()),
                       ])))));
   }
 }

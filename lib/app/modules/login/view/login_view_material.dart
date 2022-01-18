@@ -38,53 +38,71 @@ class LoginViewMaterial extends StatelessWidget {
                       iconPrefix: Icons.mail,
                       iconSufix: Icons.close,
                     )))),
-        Flexible(
-            fit: FlexFit.tight,
-            child: Container(
-                color: Colors.transparent,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: InkWell(
-                    child: Obx(
-                      () => AnimatedContainer(
-                        alignment: Alignment.center,
-                        curve: Curves.ease,
-                        duration: Duration(milliseconds: 1000),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: Image(image: AssetImage(_properties.appLoginImgBtn))
-                            ,//<<<<<<<< erro
-                            // borderRadius: BorderRadius.all(Radius.circular(100)),
-                            // shape: BoxShape.rectangle,
-                            // color: _controller.buttonColorObs.value,
-                            // border: Border.all(color: Colors.grey),
-                            // borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: _controller.buttonColorObs.value,
-                                  blurRadius: _controller.buttonShadowBlurObs.value)
-                            ]),
-                        // child: Image(image: AssetImage(_properties.appLoginImgBtn)),
-                      ),
-                    ),
-                    onTap: () => _triggerButtonAction(context))))
+        Flexible(fit: FlexFit.tight, child: _loginButton(context))
       ]))));
 
-  void _triggerButtonAction(BuildContext context) {
+  Container _loginButton(BuildContext context) {
+    var _responsiveHeight = MediaQuery.of(context).size.height * 0.12;
+    var _responsiveWidth = MediaQuery.of(context).size.width * 0.25;
+    return Container(
+        // color: Colors.green,
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: GestureDetector(
+            child: Obx(
+              () => AnimatedContainer(
+                duration: const Duration(milliseconds: 750),
+                alignment: Alignment.center,
+                curve: Curves.fastOutSlowIn,
+                height: _responsiveHeight,
+                width: _responsiveWidth,
+                transform: (_controller.buttonScaleObs.value
+                    ? (Matrix4.identity()
+                      ..translate(0.025 * _responsiveWidth,0.025 * _responsiveHeight)
+                      ..scale(0.95, 0.95))
+                    : Matrix4.identity()),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _controller.buttonColorObs.value,
+                    border: Border.all(color: _controller.buttonColorObs.value),
+                    boxShadow: [
+                      BoxShadow(
+                        color: _controller.buttonColorObs.value,
+                        blurRadius: _controller.buttonShadowBlurObs.value,
+                      ),
+                    ]),
+                child: Image(image: AssetImage(_properties.appLoginImgBtn)),
+              ),
+            ),
+            onTap: () => _loginButtonTriggerAction(context)));
+  }
+
+  void _loginButtonTriggerAction(BuildContext context) {
     // @formatter:off
-    _controller.elevatorButtonAnimation(color: Colors.grey,blur: 30);
-    var checkEmail = _controller.emailValidation(context);
-    FocusScope.of(context).unfocus();
-    if (checkEmail) {
-       _controller
-           .authentication(_controller.emailController.text.trim())
-           .then((value) => value
-                      ? Get.toNamed(Routes.ELEVATOR_LIST_URL)
-                      : Get.defaultDialog(
-                      title: _labels.ops,
-                      middleText:_messages.authFailContent)
-       );
-    }
+    var isValidEmail = _controller.emailValidation(context);
+    _controller.loginButtonAnimation(color: Colors.orange,blur: 0);
+
+    Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
+    .whenComplete(() {
+      if(!isValidEmail) _controller.loginButtonAnimation(color: Colors.red,blur: 30);
+      FocusScope.of(context).unfocus();
+      if (isValidEmail) {
+         _controller
+          .authentication(_controller.emailController.text.trim())
+          .then((isAuthenticed) =>
+            isAuthenticed
+            ? () {
+                  _controller.loginButtonAnimation(color: Colors.green,blur: 30);
+                  Future
+                  .delayed(Duration(milliseconds: _properties.delayStatusElevator))
+                  .whenComplete(() => Get.toNamed(Routes.ELEVATOR_LIST_URL));
+                 }.call()
+            : () {
+                  _controller.loginButtonAnimation(color: Colors.red,blur: 30);
+                  Get.defaultDialog(title: _labels.ops, middleText:_messages.authFailContent);
+                 }.call());
+      }
+    });
     // @formatter:on
   }
 }
