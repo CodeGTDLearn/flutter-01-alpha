@@ -35,16 +35,12 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-
-  background_image: "assets/background-splash.png"
-  image: "assets/logo-splash.png"
-
+  background_image: assets/background-splash.png
+  image: assets/logo-splash.png
   android_gravity: center
   ios_center_mode: botton
-
 #  fullscreen: true
-
-  android12: true
+#  android12: true
 
 
 
