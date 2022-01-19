@@ -11,6 +11,8 @@ import 'core/platform_drivers/material_app.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // SystemChrome.setEnabledSystemUIMode(
+  //     [SystemUiOverlay.bottom, SystemUiOverlay.top]);
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

@@ -5,8 +5,6 @@ import 'package:flutter_01_alpha/app/modules/login/components/email_form_field/e
 import 'package:flutter_01_alpha/app/modules/login/components/login_button.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_controller.dart';
 import 'package:get/instance_manager.dart';
-import 'package:get/route_manager.dart';
-import 'package:get/state_manager.dart';
 
 class LoginViewMaterial extends StatelessWidget {
   final _labels = Get.find<Labels>();

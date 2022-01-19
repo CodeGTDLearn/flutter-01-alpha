@@ -6,7 +6,6 @@ import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 import 'elevator_list_service.dart';
 import 'entity/elevator.dart';
