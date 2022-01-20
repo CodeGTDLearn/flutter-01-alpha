@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/look_feel/theme.dart';
+import 'package:flutter_01_alpha/app/core/platforms/look_feel/theme.dart';
+import 'package:flutter_01_alpha/app/core/routes/views_router.dart';
+import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:get/get.dart';
 
-import '../properties.dart';
-import '../routes.dart';
+import '../../properties.dart';
 
 class MaterialDriver extends StatelessWidget {
   final Properties _properties = Properties();
@@ -19,8 +20,8 @@ class MaterialDriver extends StatelessWidget {
       title: _properties.appName,
       debugShowCheckedModeBanner: false,
       theme: _theme.materialTheme(),
-      initialRoute: Routes.LOGIN_VIEW_URL,
-      getPages: Routes.appRoutes,
+      initialRoute: ViewsRoutes.LOGIN_VIEW_URL,
+      getPages: ViewsRouter.viewRouting,
     );
   }
 }

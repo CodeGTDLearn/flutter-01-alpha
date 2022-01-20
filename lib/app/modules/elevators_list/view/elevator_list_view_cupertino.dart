@@ -1,7 +1,7 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_01_alpha/app/core/components/timer_messager_indicator.dart';
+import 'package:flutter_01_alpha/app/core/components/timer_messager_indicator_adaptive.dart';
+import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/components/multi_sliver_appbar/i_adaptive_sliver_appbar.dart';
@@ -14,9 +14,10 @@ import '../elevator_list_controller.dart';
 
 class ElevatorListViewCupertino extends StatelessWidget {
   final _labels = Get.find<Labels>();
-  final _sliverAppbar = Get.find<IAdaptiveSliverAppBar>(tag: Platform.operatingSystem);
+  // final _sliverAppbar = Get.find<IAdaptiveSliverAppBar>(tag: Platform.operatingSystem);
   final _controller = Get.find<ElevatorListController>();
   final _messages = Get.find<MessageLabels>();
+  final _properties = Get.find<Properties>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +25,21 @@ class ElevatorListViewCupertino extends StatelessWidget {
     return CupertinoPageScaffold(
         // navigationBar: CupertinoNavigationBar(middle: Text(_labels.elevListTitle)),
         child: Obx(() => (_controller.notOnlineStatusObs.toList().isEmpty
-            ? TimerMessageIndicator.message(
+            ? TimerMessageIndicatorAdaptive.message(
                 message: _messages.dbElevatorsEmpty, fontSize: 20)
             : FutureBuilder(
                 future: _controller.getNotonlineElevators(),
                 builder: (c, snap) {
                   if (snap.hasError) {
-                    return TimerMessageIndicator.message(
-                        message: _messages.error_try_later, fontSize: 20);
+                    return TimerMessageIndicatorAdaptive.message(
+                        message: _messages.errorTryAgainLater, fontSize: 20);
                   }
                   return _customScrollView();
                 }))));
   }
 
   Widget _customScrollView() {
+    final _sliverAppbar = Get.find<IAdaptiveSliverAppBar>(tag: _properties.appPlatform);
     return SafeArea(
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),

@@ -23,14 +23,14 @@ class LoginViewMaterial extends StatelessWidget {
           Flexible(
               fit: FlexFit.tight,
               child: Container(
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   child: Image(image: AssetImage(_properties.appLogo)))),
           Flexible(
               fit: FlexFit.tight,
               child: Form(
                   key: _controller.loginFormKey,
                   child: SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: EmailFormFieldMaterial().field(
                         _controller,
                         hint: _labels.labelLoginFieldHint,

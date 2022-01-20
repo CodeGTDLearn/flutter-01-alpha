@@ -46,10 +46,8 @@ class ElevatorDetailsStatusButton {
                 animatedTexts: [
                   RotateAnimatedText(controller.buttonLabelStatusObs.value)
                 ],
-                onTap: () async => await controller.changingStatus(
-                      context,
-                      elevator,
-                    ))));
+                onTap: () async =>
+                    await controller.changingElevatorStatus(context, elevator))));
     // onTap: () async => await controller.changingElevatorStatus(context))));
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/modules/login/components/email_form_field/email_form_field_cupertino.dart';
@@ -40,7 +39,7 @@ class LoginViewCupertino extends StatelessWidget {
                             child: EmailFormFieldCupertino().field(
                               _controller,
                               hint: _labels.labelLoginFieldHint,
-                              iconPrefix: Icons.mail,
+                              iconPrefix: CupertinoIcons.mail,
                               // iconSufix: Icons.close,
                             ))))),
             Flexible(

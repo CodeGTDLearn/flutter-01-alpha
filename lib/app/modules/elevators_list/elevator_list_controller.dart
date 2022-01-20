@@ -1,4 +1,4 @@
-import 'dart:io';
+// ignore_for_file: prefer_final_fields, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
@@ -11,11 +11,13 @@ import 'elevator_list_service.dart';
 import 'entity/elevator.dart';
 
 class ElevatorListController extends GetxController {
+  final _properties = Get.find<Properties>();
   final _service = Get.find<ElevatorListService>();
-  final _modal = Get.find<IAdaptiveModal>(tag: Platform.operatingSystem);
+  late final _modal;
+
+  // final _modal = Get.find<IAdaptiveModal>(tag: Platform.operatingSystem);
   final _messages = Get.find<MessageLabels>();
   final _labels = Get.find<Labels>();
-  final _properties = Get.find<Properties>();
 
   var _notOnlineStatusObs = <Elevator>[].obs;
 
@@ -29,6 +31,7 @@ class ElevatorListController extends GetxController {
   @override
   void onInit() {
     getNotonlineElevators();
+    _modal = Get.find<IAdaptiveModal>(tag: _properties.appPlatform);
   }
 
   Future<String> updateStatus(String id) {
@@ -49,8 +52,7 @@ class ElevatorListController extends GetxController {
         .then((elevatorList) => _notOnlineStatusObs.value = elevatorList);
   }
 
-  void statusButtonAnimation(
-      {required MaterialColor color, required double blur}) {
+  void statusButtonAnimation({required MaterialColor color, required double blur}) {
     _buttonColorObs.value = color;
     _buttonShadowBlurObs.value = blur;
     _buttonScaleObs.value = !_buttonScaleObs.value;
@@ -67,7 +69,7 @@ class ElevatorListController extends GetxController {
       _labels.no,
       () async {
         await updateStatus(elevator.id.toString()).then((status) async {
-          if (status == 'online') await _elevatorUpdateSucessClosingTheModal(status,elevator);
+          if (status == 'online') await _elevatorUpdateOkClosingModal(status, elevator);
           if (status == 'error') _elevatorUpdateFailingImpedingTheElevatorUpdate();
         });
       },
@@ -85,7 +87,7 @@ class ElevatorListController extends GetxController {
         backgroundColor: Colors.red, colorText: Colors.white);
   }
 
-  Future<void> _elevatorUpdateSucessClosingTheModal(
+  Future<void> _elevatorUpdateOkClosingModal(
     String elevatorStatus,
     Elevator elevator,
   ) async {
@@ -99,10 +101,10 @@ class ElevatorListController extends GetxController {
     });
   }
 
-  Future<void> changingStatus(context, Elevator elevator) async {
+  Future<void> changingElevatorStatus(context, Elevator elevator) async {
     statusButtonAnimation(color: Colors.red, blur: 0);
     await Future.delayed(const Duration(milliseconds: 1000));
-    modalToConfirmingStatusChange(context,elevator);
+    modalToConfirmingStatusChange(context, elevator);
   }
 
   get buttonColorObs => _buttonColorObs;
@@ -120,5 +122,4 @@ class ElevatorListController extends GetxController {
   set elevatorListViewCupertinoContext(value) {
     _elevatorListViewCupertinoContext = value;
   }
-
 }

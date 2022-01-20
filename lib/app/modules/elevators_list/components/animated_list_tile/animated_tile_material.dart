@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_detail_view_adaptive.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_details_view_adaptive.dart';
 import 'package:get/instance_manager.dart';
 
 import 'i_animated_tile.dart';
@@ -17,7 +17,7 @@ class AnimatedTileMaterial implements IAnimatedListTile {
         transitionDuration: Duration(milliseconds: _properties.delayListTile),
         transitionType: ContainerTransitionType.fadeThrough,
         openBuilder: (context, void Function({Object? returnValue}) openContainer) {
-          return ElevatorDetailViewAdaptive(elevator: elevator);
+          return ElevatorDetailsViewAdaptive(elevator: elevator);
         },
         closedBuilder: (_context, void Function() openContainer) {
           return Card(

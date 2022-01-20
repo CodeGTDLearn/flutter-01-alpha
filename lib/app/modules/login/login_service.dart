@@ -5,6 +5,6 @@ class LoginService {
   final repo = Get.find<LoginRepo>();
 
   Future<bool> authentication(String email) {
-    return repo.authentication(email).then((bool) => bool);
+    return repo.authentication(email).then((response) => response);
   }
 }

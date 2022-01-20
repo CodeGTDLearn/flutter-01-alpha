@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/components/elevator_details_status_button.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
@@ -8,10 +7,10 @@ import 'package:get/get.dart';
 import '../components/elevator_details_panel.dart';
 import '../elevator_list_controller.dart';
 
-class ElevatorDetailViewAdaptive extends StatelessWidget {
-  Elevator? elevator;
+class ElevatorDetailsViewAdaptive extends StatelessWidget {
+  final Elevator? elevator;
 
-  ElevatorDetailViewAdaptive({this.elevator});
+  ElevatorDetailsViewAdaptive({Key? key, this.elevator}) : super(key: key);
 
   final _controller = Get.find<ElevatorListController>();
 
@@ -31,19 +30,21 @@ class ElevatorDetailViewAdaptive extends StatelessWidget {
             child: ElevatorDetailsPanel().create(elevator!),
           ),
           Flexible(
-            flex: 5,
+              flex: 5,
               fit: FlexFit.tight,
               child: Container(
                   alignment: Alignment.center,
                   color: Colors.transparent,
-                  child: Obx(() => GestureDetector(
-                      child: ElevatorDetailsStatusButton()
-                          .create(context, _controller, elevator!),
-                      onTap: () async {
-                        _controller.statusButtonAnimation(color: Colors.red, blur: 0);
-                        await Future.delayed(const Duration(milliseconds: 1000));
-                        _controller.modalToConfirmingStatusChange(context, elevator!);
-                      }))))
+                  child: Obx(
+                    () => ElevatorDetailsStatusButton()
+                        .create(context, _controller, elevator!)
+                        // GestureDetector(
+                        // child: ElevatorDetailsStatusButton()
+                        //     .create(context, _controller, elevator!),
+                        // onTap: () async {
+                        //   await _controller.changingElevatorStatus(context, elevator!);
+                        // }),
+                  )))
         ])));
   }
 }

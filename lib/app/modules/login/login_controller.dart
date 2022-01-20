@@ -1,7 +1,9 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
-import 'package:flutter_01_alpha/app/core/routes.dart';
+import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_service.dart';
@@ -24,7 +26,7 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
-    _emailController.text = "nicolas.genest@codeboxx.biz";
+    _emailController.text = "nicolas.genest@codeboxx.bizz";
     super.onInit();
   }
 
@@ -82,7 +84,7 @@ class LoginController extends GetxController {
           loginButtonAnimation(color: Colors.green,blur: 30);
           Future
               .delayed(Duration(milliseconds: _properties.delayStatusElevator))
-              .whenComplete(() => Get.toNamed(Routes.ELEVATOR_LIST_URL));
+              .whenComplete(() => Get.toNamed(ViewsRoutes.ELEVATOR_LIST_URL));
         }.call()
             : () {
           loginButtonAnimation(color: Colors.red,blur: 30);

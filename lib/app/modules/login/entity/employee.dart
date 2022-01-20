@@ -8,23 +8,23 @@ part 'employee.g.dart';
 @JsonSerializable()
 class Employee {
   int id;
-  String first_name;
-  String last_name;
+  String firstName;
+  String lastName;
   String title;
   String email;
-  String created_at;
-  String updated_at;
-  int user_id;
+  String createdAt;
+  String updatedAt;
+  int userId;
 
   Employee(
     this.id,
-    this.first_name,
-    this.last_name,
+    this.firstName,
+    this.lastName,
     this.title,
     this.email,
-    this.created_at,
-    this.updated_at,
-    this.user_id,
+    this.createdAt,
+    this.updatedAt,
+    this.userId,
   );
 
   factory Employee.fromJson(Map<String, dynamic> json) => _$EmployeeFromJson(json);

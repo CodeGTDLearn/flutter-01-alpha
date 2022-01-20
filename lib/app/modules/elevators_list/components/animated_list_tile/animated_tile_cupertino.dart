@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_detail_view_adaptive.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_details_view_adaptive.dart';
 import 'package:get/instance_manager.dart';
 
 import '../../elevator_list_controller.dart';
@@ -23,13 +23,13 @@ class AnimatedTileCupertino implements IAnimatedListTile {
                 backgroundColor: CupertinoColors.systemBlue),
             title: Text(" Model: ${elevator.model}"),
             subtitle: Text("Type: ${elevator.types}"),
-            trailing: Icon(CupertinoIcons.info),
+            trailing: const Icon(CupertinoIcons.info),
           )),
       onTap: () => showCupertinoDialog(
         context: _controller.elevatorListViewCupertinoContext,
         builder: (BuildContext context) {
           return CupertinoPopupSurface(
-              child: ElevatorDetailViewAdaptive(elevator: elevator));
+              child: ElevatorDetailsViewAdaptive(elevator: elevator));
         },
       ),
     );

@@ -32,11 +32,13 @@ dev_dependencies:
   flutter_native_splash: ^1.3.3
 
 flutter_native_splash:
+#TO GENERATE THE SPLASH-SCREEN: flutter pub run flutter_native_splash:create
   android: true
   ios: true
   web: false
-  background_image: assets/background-splash.png
-  image: assets/logo-splash.png
+#  Your image must be a PNG file.
+  background_image: assets/splash/primary-background.png
+  image: assets/splash/primary-splash-logo.png
   android_gravity: center
   ios_center_mode: botton
 #  fullscreen: true
@@ -49,7 +51,11 @@ flutter:
   uses-material-design: true
 
   assets:
-    - logo.png
-    - elevator-btn-2.png
-    - background-splash.png
-    - logo-splash.png
+    - assets/login_view/logo.png
+    - assets/login_view/elevator-btn-login-view.png
+    - assets/splash/primary-background.png
+    - assets/splash/primary-splash-logo.png
+    - assets/splash/secondary-logo-dark.png
+    - assets/splash/secondary-logo-light.png
+    - assets/splash/circular_progress_indicator_small.gif
+    - assets/splash/cupertino_activity_indicator_small.gif

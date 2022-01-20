@@ -4,7 +4,7 @@
     1. Primary (native):
        1. package: flutter_native_splash
     2. Secondary (Widget) 
-       1. package: splashscreen
+       1. Adaptive (Android x Ios)
 
 
 3. Adaptive approuch (Android x Ios):

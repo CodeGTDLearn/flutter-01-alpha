@@ -1,14 +1,16 @@
-class MessageLabels {
-  final _EMAIL_FORMAT_FIELD_LOGIN = "Please, type the email properly";
-  final _EMAIL_LOGIN_SUCESS = "Login successfully";
-  final _AUTHENTICATION_FAIL_CONTENT = "User not found or Inexistent.";
-  final _ELEVATORS_NOT_FOUND_YET = "Elevators not found or Inexistent.";
-  final _DB_ELEVATORS_EMPTY = "DB Elevators is empty.";
-  final _ELEVATORS_ACTIVATION_CONFIRMATION = "Are you sure?";
-  final _ELEVATORS_ERROR_UPDATE_TRY_AGAIN = "Update fail. Try Again";
-  final _GENERAL_ERROR_MESSAGE_TRY_AGAIN = "Something is wronged. Try again later";
+// ignore_for_file: constant_identifier_names
 
-  get error_try_later => _GENERAL_ERROR_MESSAGE_TRY_AGAIN;
+class MessageLabels {
+ static const _EMAIL_FORMAT_FIELD_LOGIN = "Please, type the email properly";
+ static const _EMAIL_LOGIN_SUCESS = "Login successfully";
+ static const _AUTHENTICATION_FAIL_CONTENT = "User not found or Inexistent.";
+ static const _ELEVATORS_NOT_FOUND_YET = "Elevators not found or Inexistent.";
+ static const _DB_ELEVATORS_EMPTY = "DB Elevators is empty.";
+ static const _ELEVATORS_ACTIVATION_CONFIRMATION = "Are you sure?";
+ static const _ELEVATORS_ERROR_UPDATE_TRY_AGAIN = "Update fail. Try Again";
+ static const _GENERAL_ERROR_MESSAGE_TRY_AGAIN = "Something is wronged. Try again later";
+
+  get errorTryAgainLater => _GENERAL_ERROR_MESSAGE_TRY_AGAIN;
 
   get dbElevatorsEmpty => _DB_ELEVATORS_EMPTY;
 
