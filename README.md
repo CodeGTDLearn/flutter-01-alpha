@@ -1,16 +1,46 @@
-# flutter_01_alpha
+### Project Index
 
-A new Flutter project.
+1. Splash-Screen:
+    1. Primary (native):
+       1. package: flutter_native_splash
+    2. Secondary (Widget) 
+       1. package: splashscreen
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+3. Adaptive approuch (Android x Ios):
+   1. widgets
+      1. Package: flutter_platform_widgets
+   2. Splitted views 
+   3. Specific widgets (SOLID 2)
+   4. Platform Drivers
+      1. Android_app_driver 
+      2. Ios_app_driver
+   5. Specific themes 
+   6. TagBindings(GetX) + DArt.io_platform: 
+      1. Selecting the specific dependency (Android x Ios), according the platform
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+4. Animations:
+   1. Animated-Container
+   2. Shadows
+   3. GetxController 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+5. Form 
+   1. Field validations
+   2. GetxController
+
+
+5. GetX:
+   1. state 
+   2. route 
+   3. dependencies
+   4. TagBindings
+
+
+6. MVC
+   1. Core 
+   2. entity+repo+service (business rules) 
+      1. entity: package: JsonSerializable
+   3. controller (state)
+   4. view - activities
