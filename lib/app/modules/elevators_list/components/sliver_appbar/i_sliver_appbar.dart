@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-abstract class IAdaptiveSliverAppBar {
+abstract class ISliverAppBar {
   Widget create(
     String title, {
     Function trailingFunction,

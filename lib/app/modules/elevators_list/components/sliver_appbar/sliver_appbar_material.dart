@@ -1,17 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-import 'i_adaptive_sliver_appbar.dart';
+import 'i_sliver_appbar.dart';
 
 // ignore: avoid_classes_with_only_static_members
-class SliverAppBarMaterial implements IAdaptiveSliverAppBar {
+class SliverAppBarMaterial implements ISliverAppBar {
   @override
   SliverAppBar create(
     String title, {
     Function? trailingFunction,
     IconData? trailingIcon = Icons.arrow_back,
   }) {
+    final _platform = Platform.operatingSystem;
     return SliverAppBar(
-      title: Text(title),
+      title: Text( '$title|View:$_platform'),
       automaticallyImplyLeading: false,
       actions:
       [

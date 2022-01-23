@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
@@ -10,13 +12,14 @@ class LoginViewMaterial extends StatelessWidget {
   final _labels = Get.find<Labels>();
   final _properties = Get.find<Properties>();
   final _controller = Get.find<LoginController>();
+  final _platform = Platform.operatingSystem;
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height * 0.12;
     var width = MediaQuery.of(context).size.width * 0.25;
     return Scaffold(
-        appBar: AppBar(title: Text(_properties.appTitle)),
+        appBar: AppBar(title: Text('${_properties.appTitle}|View: $_platform')),
         body: SafeArea(
             child: Center(
                 child: Column(children: [
@@ -31,12 +34,10 @@ class LoginViewMaterial extends StatelessWidget {
                   key: _controller.loginFormKey,
                   child: SingleChildScrollView(
                       padding: const EdgeInsets.all(16),
-                      child: EmailFormFieldMaterial().field(
-                        _controller,
-                        hint: _labels.labelLoginFieldHint,
-                        iconPrefix: Icons.mail,
-                        iconSufix: Icons.close,
-                      )))),
+                      child: EmailFormFieldMaterial().field(_controller,
+                          hint: _labels.labelLoginFieldHint,
+                          iconPrefix: Icons.mail,
+                          iconSufix: Icons.close)))),
           Flexible(
               fit: FlexFit.tight,
               child: LoginButton().create(context, _controller, height, width))

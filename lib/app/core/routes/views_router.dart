@@ -5,11 +5,11 @@ import 'package:get/instance_manager.dart';
 
 import '../bindings/elevator_list_bindings.dart';
 import '../bindings/login_bindings.dart';
-import '../platforms/select_by_platform.dart';
+import '../platforms/get_by_platform.dart';
 import 'views_routes.dart';
 
 class ViewsRouter {
-  static final _selectPlatform = Get.put(SelectByPlatform());
+  static final _selectPlatform = Get.put(GetByPlatform());
 
   static List<GetPage> viewRouting = [
     GetPage(

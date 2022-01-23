@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 class Properties {
   // APP-GENERAL-SPECIFICATIONS
-  final String _APP_PLATFORM =  Platform.operatingSystem;
+  final String _APP_PLATFORM = Platform.operatingSystem;
+
   // static const String _APP_PLATFORM = "ios";
   static const String _APP_NAME = "Rocket Elevators";
   static const String _APP_TITLE = 'Rocket Elevators Mobile';
@@ -42,36 +43,37 @@ class Properties {
     DefaultCupertinoLocalizations.delegate,
   ];
 
-  String get appPlatform => _APP_PLATFORM;
+  get appPlatform => _APP_PLATFORM;
 
-  String get appLoginImgBtn => _APP_LOGIN_IMAGE_BUTTON;
+  get appLoginImgBtn => _APP_LOGIN_IMAGE_BUTTON;
 
   get contextGkey => _APP_CONTEXT_GLOBAL_KEY;
 
-  int get delayListView => _DELAY_MILLISEC_LISTVIEW;
+  get delayListView => _DELAY_MILLISEC_LISTVIEW;
 
-  int get delayListTile => _DELAY_MILLISEC_LISTTILE;
+  get delayListTile => _DELAY_MILLISEC_LISTTILE;
 
-  int get delayStatusElevator => _DELAY_MILLISEC_STATUS_ELEVATOR;
+  get delayStatusElevator => _DELAY_MILLISEC_STATUS_ELEVATOR;
 
-  String get employeeEndp => "$_API_ROOT_URL$_API_EMPLOYEE_ENDPOINT";
+  get apiRootUrl => _API_ROOT_URL;
 
-  String get notOnlineElevatorsEndp =>
-      "$_API_ROOT_URL$_API_NOT_ONLINE_ELEVATORS_ENDPOINT";
+  get employeeEndp => _API_EMPLOYEE_ENDPOINT;
 
-  String get appName => _APP_NAME;
+  get notOnlineElevatorsEndp => _API_NOT_ONLINE_ELEVATORS_ENDPOINT;
 
-  String get appTitle => _APP_TITLE;
+  get appName => _APP_NAME;
 
-  int get custProgDelay => _CUSTOM_PROGRESS_INDICICATOR_DELAY;
+  get appTitle => _APP_TITLE;
 
-  String get appLogo => _IMAGE_LOGO_URL;
+  get custProgDelay => _CUSTOM_PROGRESS_INDICICATOR_DELAY;
 
-  double get offsetListView => _VERTICAL_OFFSET_LISTVIEW;
+  get appLogo => _IMAGE_LOGO_URL;
 
-  String get updateEndp => "$_API_ROOT_URL$_API_ELEVATOR_UPDATE_ENDPOINT";
+  get offsetListView => _VERTICAL_OFFSET_LISTVIEW;
 
-  String get cupertinoIndicator => _CUPERTINO_CIRCULAR_PROGRESS_INDICATOR;
+  get updateEndp => _API_ELEVATOR_UPDATE_ENDPOINT;
 
-  String get materialIndicator => _MATERIAL_CIRCULAR_PROGRESS_INDICATOR;
+  get cupertinoIndicator => _CUPERTINO_CIRCULAR_PROGRESS_INDICATOR;
+
+  get materialIndicator => _MATERIAL_CIRCULAR_PROGRESS_INDICATOR;
 }

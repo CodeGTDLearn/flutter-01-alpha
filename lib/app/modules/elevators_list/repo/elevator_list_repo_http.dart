@@ -4,15 +4,17 @@ import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
 
-import 'entity/elevator.dart';
+import '../entity/elevator.dart';
+import 'i_elevator_list_repo.dart';
 
-class ElevatorListRepo {
+class ElevatorListRepoHttp implements IElevatorListRepo {
   final _properties = Get.find<Properties>();
 
+  @override
   Future<String> updateElevatorStatus(String id) {
     // api/elevators/{id}/online
     // @formatter:off
-    var url = "${_properties.updateEndp}$id/online";
+    var url = "${_properties.apiRootUrl}${_properties.updateEndp}$id/online";
     Map body = {
       "status" : "status"
     };
@@ -39,9 +41,11 @@ class ElevatorListRepo {
     // @formatter:on
   }
 
+  @override
   Future<List<Elevator>> getNotonlineElevators() {
+    var url = "${_properties.apiRootUrl}${_properties.notOnlineElevatorsEndp}";
     return http
-        .get(Uri.parse(_properties.notOnlineElevatorsEndp),
+        .get(Uri.parse(url),
             headers: {"Accept": "application/json"})
         .then(_decodeResponse)
         .catchError((onError) => throw onError);

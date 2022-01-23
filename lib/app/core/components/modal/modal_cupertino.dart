@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 
 import 'i_adaptive_modal.dart';
@@ -13,7 +15,7 @@ class ModalCupertino implements IAdaptiveModal {
     Function actionNo,
   ) {
     var cupertinoAlertDialog = CupertinoAlertDialog(
-        // title: Text("title"),
+        title: Text("View: ${Platform.operatingSystem}"),
         content: Text(content),
         actions: [
           CupertinoButton(child: Text(labelYes), onPressed: () => actionYes.call()),

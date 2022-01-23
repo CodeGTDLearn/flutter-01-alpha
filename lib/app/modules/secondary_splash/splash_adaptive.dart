@@ -11,7 +11,6 @@ class SplashAdaptive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool lightMode = MediaQuery.of(context).platformBrightness == Brightness.light;
-
     var background = lightMode ? const Color(0xffe1f5fe) : const Color(0xff042a49);
 
     var body = SafeArea(
@@ -31,13 +30,7 @@ class SplashAdaptive extends StatelessWidget {
     ));
 
     return _properties.appPlatform == 'ios'
-        ? CupertinoPageScaffold(
-            backgroundColor: background,
-            child: body,
-          )
-        : Scaffold(
-            backgroundColor: background,
-            body: body,
-          );
+        ? CupertinoPageScaffold(backgroundColor: background, child: body)
+        : Scaffold(backgroundColor: background, body: body);
   }
 }

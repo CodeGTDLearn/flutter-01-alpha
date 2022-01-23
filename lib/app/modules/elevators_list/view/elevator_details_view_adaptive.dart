@@ -18,33 +18,24 @@ class ElevatorDetailsViewAdaptive extends StatelessWidget {
   Widget build(BuildContext context) {
     elevator ?? Get.arguments();
     _controller.buttonLabelStatusObs.value = elevator!.status;
-
     return PlatformScaffold(
-        appBar: PlatformAppBar(title: Text("Elevator ID: ${elevator!.id.toString()}")),
+        appBar: PlatformAppBar(
+            title: Text("Elevator ID: ${elevator!.id.toString()}|View: Adaptive")),
         body: Center(
             child: Column(children: [
           const Spacer(flex: 1),
           Flexible(
-            flex: 5,
-            fit: FlexFit.tight,
-            child: ElevatorDetailsPanel().create(elevator!),
-          ),
+              flex: 5,
+              fit: FlexFit.tight,
+              child: ElevatorDetailsPanel().create(elevator!)),
           Flexible(
               flex: 5,
               fit: FlexFit.tight,
               child: Container(
                   alignment: Alignment.center,
                   color: Colors.transparent,
-                  child: Obx(
-                    () => ElevatorDetailsStatusButton()
-                        .create(context, _controller, elevator!)
-                        // GestureDetector(
-                        // child: ElevatorDetailsStatusButton()
-                        //     .create(context, _controller, elevator!),
-                        // onTap: () async {
-                        //   await _controller.changingElevatorStatus(context, elevator!);
-                        // }),
-                  )))
+                  child: Obx(() => ElevatorDetailsStatusButton()
+                      .create(context, _controller, elevator!))))
         ])));
   }
 }

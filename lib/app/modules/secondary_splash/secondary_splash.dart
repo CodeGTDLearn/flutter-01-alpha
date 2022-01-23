@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/platforms/select_by_platform.dart';
+import 'package:flutter_01_alpha/app/core/platforms/get_by_platform.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
@@ -14,24 +14,22 @@ class SecondarySplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // INITIALIZE - METHOD:
-      // This is where you can initialize
-      // the resources needed by your app while
-      // the splash screen is displayed.
-      future: Init.instance.initialize(),
-
-      builder: (context, AsyncSnapshot snapshot) {
-        // Show splash screen while waiting for app resources to load:
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return _properties.appPlatform == "ios"
-              ? GetCupertinoApp(home: SplashAdaptive())
-              : GetMaterialApp(home: SplashAdaptive());
-        } else {
-          // Loading is done, return the app:
-          return SelectByPlatform().appDriver();
-        }
-      },
-    );
+        // INITIALIZE - METHOD:
+        // This is where you can initialize
+        // the resources needed by your app while
+        // the splash screen is displayed.
+        future: Init.instance.initialize(),
+        builder: (context, AsyncSnapshot snapshot) {
+          // Show splash screen while waiting for app resources to load:
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return _properties.appPlatform == "ios"
+                ? GetCupertinoApp(home: SplashAdaptive())
+                : GetMaterialApp(home: SplashAdaptive());
+          } else {
+            // Loading is done, return the app:
+            return GetByPlatform().appDriver();
+          }
+        });
   }
 }
 

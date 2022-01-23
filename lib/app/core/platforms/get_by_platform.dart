@@ -9,7 +9,7 @@ import '../properties.dart';
 import 'app_drivers/cupertino_app.dart';
 import 'app_drivers/material_app.dart';
 
-class SelectByPlatform {
+class GetByPlatform {
   final _properties = Get.put(Properties());
 
   StatelessWidget appDriver() {

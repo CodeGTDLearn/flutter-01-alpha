@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'i_adaptive_modal.dart';
@@ -13,6 +15,7 @@ class ModalMaterial implements IAdaptiveModal {
     Function actionNo,
   ) {
     var alertDialog = AlertDialog(
+      title: Text("View: ${Platform.operatingSystem}"),
       content: Text(content),
       actions: [
         TextButton(onPressed: () => actionYes.call(), child: Text(labelYes)),

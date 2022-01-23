@@ -41,7 +41,8 @@ class _TimerMessageIndicatorAdaptiveState extends State<TimerMessageIndicatorAda
       alignment: Alignment.center,
       child: widget._showCircularProgressIndicator
           ? const CircularProgressIndicator.adaptive()
-          : Text(widget.message!, style: TextStyle(fontSize: widget.fontSize)),
+          : Text('${widget.message!}|View: Adaptive', style: TextStyle(fontSize:
+      widget.fontSize)),
     );
   }
 

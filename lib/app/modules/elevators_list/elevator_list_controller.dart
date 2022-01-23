@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
+import 'package:flutter_01_alpha/app/core/components/timer_messager_indicator_adaptive.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
@@ -69,6 +70,10 @@ class ElevatorListController extends GetxController {
       _labels.no,
       () async {
         await updateStatus(elevator.id.toString()).then((status) async {
+          if (status == 'offline'){
+            TimerMessageIndicatorAdaptive.message(
+                message: _messages.errorUpdateTryAgain, fontSize: 20);
+          }
           if (status == 'online') await _elevatorUpdateOkClosingModal(status, elevator);
           if (status == 'error') _elevatorUpdateFailingImpedingTheElevatorUpdate();
         });

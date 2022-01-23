@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
@@ -10,13 +12,15 @@ class LoginViewCupertino extends StatelessWidget {
   final _labels = Get.find<Labels>();
   final _properties = Get.find<Properties>();
   final _controller = Get.find<LoginController>();
+  final _platform = Platform.operatingSystem;
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height * 0.12;
     var width = MediaQuery.of(context).size.width * 0.25;
     return CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(middle: Text(_properties.appTitle)),
+        navigationBar: CupertinoNavigationBar(middle: Text('${_properties
+            .appTitle}|View: $_platform')),
         resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromRGBO(240, 241, 247, 1),
         child: SafeArea(

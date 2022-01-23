@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/platforms/look_feel/theme.dart';
+import 'package:flutter_01_alpha/app/core/platforms/look_feel/app_themes.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_router.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:get/get.dart';
@@ -8,8 +7,8 @@ import 'package:get/get.dart';
 import '../../properties.dart';
 
 class MaterialDriver extends StatelessWidget {
-  final Properties _properties = Properties();
-  final AppTheme _theme = AppTheme();
+  final _properties = Properties();
+  final _theme = AppThemes();
 
   MaterialDriver({Key? key}) : super(key: key);
 
