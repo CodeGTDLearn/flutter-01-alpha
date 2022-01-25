@@ -1,3 +1,10 @@
+import 'dart:async';
+
+import 'package:flutter_01_alpha/app/core/components/timer_messager_indicator_adaptive.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/bad_format_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/global_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/htttp_fail_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/no_connection_exception.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/instance_manager.dart';
@@ -9,7 +16,17 @@ class LoginRepoGetx extends GetConnect implements ILoginRepo {
 
   @override
   void onInit() {
-    httpClient.baseUrl = _properties.apiRootUrl;
+    httpClient
+      ..baseUrl = _properties.apiRootUrl
+      ..defaultContentType = "application/json"
+      ..timeout = const Duration(seconds: 8);
+    // httpClient.baseUrl = _properties.apiRootUrl;
+    // httpClient.defaultContentType = "application/json";
+    // httpClient.timeout = const Duration(seconds: 8);
+    // httpClient.errorSafety = false;
+    // httpClient.addResponseModifier((request, response) async {
+    //   print("addResponseModifier: ${response.body}");
+    // });
     super.onInit();
   }
 
@@ -19,31 +36,22 @@ class LoginRepoGetx extends GetConnect implements ILoginRepo {
     // @formatter:off
     return get(url)
           .then((response) {
-            // if(response.hasError) _exceptions(response);
-              return response.body.toString() == "true" ? true : false;
-          });
+            if(response.hasError) _exceptionsThrower(response);
+            return response.body.toString() == "true" ? true : false;})
+          .catchError((onError) {
+            print(onError);
+            TimerMessageIndicatorAdaptive.message(
+                message: onError.toString(),
+                fontSize: 20);
+            });
     // @formatter:on
   }
-// void _exceptions(Response response) {
-//   var s = response.statusCode;
-//   if (s >= 400 && s <= 499) throw Exception('Request Error');
-//   if (s >= 500) throw Exception('Server Error');
-// }
-// dynamic errorHandler(Response response) {
-//   print(response.toString());
-//   switch (response.statusCode) {
-//     case 200:
-//     case 201:
-//     case 202:
-//       var responseJson = response.body.toString();
-//       return responseJson;
-//     case 500:
-//       throw "Server Error pls retry later";
-//     case 403:
-//       throw 'Error occurred pls check internet and retry.';
-//     case 500:
-//     default:
-//       throw 'Error occurred retry';
-//   }
-// }
+
+  void _exceptionsThrower(Response response) {
+    if (response.status.connectionError) throw NoConnectException();
+    if (response.status.isServerError) throw NoConnectException();
+    if (response.status.code == 422) throw BadFormatException();
+    if (response.status.isNotFound) throw HttpFailException();
+    if (response.status.hasError) throw GlobalException();
+  }
 }

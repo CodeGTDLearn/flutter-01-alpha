@@ -1,7 +1,13 @@
 // ignore_for_file: prefer_final_fields
 
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/bad_format_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/global_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/htttp_fail_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/no_connection_exception.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
@@ -72,26 +78,34 @@ class LoginController extends GetxController {
     var isValidEmail = emailValidation(context);
     loginButtonAnimation(color: Colors.orange,blur: 0);
 
-    Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
-        .whenComplete(() {
-      if(!isValidEmail) loginButtonAnimation(color: Colors.red,blur: 30);
-      FocusScope.of(context).unfocus();
-      if (isValidEmail) {
-                    authentication(emailController.text.trim())
-            .then((isAuthenticed) =>
-        isAuthenticed
-            ? () {
-          loginButtonAnimation(color: Colors.green,blur: 30);
-          Future
-              .delayed(Duration(milliseconds: _properties.delayStatusElevator))
-              .whenComplete(() => Get.toNamed(ViewsRoutes.ELEVATOR_LIST_URL));
-        }.call()
-            : () {
-          loginButtonAnimation(color: Colors.red,blur: 30);
-          Get.defaultDialog(title: _labels.ops, middleText:_messages.authFailContent);
-        }.call());
-      }
-    });
+    Future
+        .delayed(Duration(milliseconds: _properties.delayStatusElevator))
+        .whenComplete(()
+        {
+          if(!isValidEmail) loginButtonAnimation(color: Colors.red,blur: 30);
+          FocusScope.of(context).unfocus();
+          if (isValidEmail) {
+             authentication(emailController.text.trim())
+             .then((isAuthenticed) => isAuthenticed
+              ? () {
+                    loginButtonAnimation(color: Colors.green,blur: 30);
+                    Future
+                        .delayed(Duration(milliseconds: _properties
+                        .delayStatusElevator))
+                        .whenComplete(() => Get.toNamed(ViewsRoutes.ELEVATOR_LIST_URL));
+                  }.call()
+              : () {
+                  loginButtonAnimation(color: Colors.red,blur: 30);
+                  Get.defaultDialog(title: _labels.ops, middleText:_messages
+                   .authFailContent);
+                  }.call())
+             // .catchError((onError){
+                // print("testannndo");
+                // _exceptionHandler(onError);
+             // })
+          ;
+         }
+       });
     // @formatter:on
   }
 
@@ -104,4 +118,6 @@ class LoginController extends GetxController {
   get emailController => _emailController;
 
   get buttonScaleObs => _buttonScaleObs;
+
+
 }

@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter_01_alpha/app/core/exceptions/bad_format_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/htttp_fail_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/no_connection_exception.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/instance_manager.dart';
@@ -13,12 +18,9 @@ class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
     httpClient.baseUrl = _properties.apiRootUrl;
     httpClient.defaultContentType = "application/json";
     httpClient.timeout = const Duration(seconds: 8);
+    // httpClient.errorSafety = false; // send the exception to the service
     super.onInit();
   }
-  // headers: {
-  //   "content-type" : "application/json",
-  // "accept" : "application/json",
-  // }
 
   @override
   Future<String> updateElevatorStatus(String id) {
@@ -45,7 +47,10 @@ class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
     return get(_properties.notOnlineElevatorsEndp)
           .then((response)
            {
-             // if(response.hasError) _exceptions(response);
+             // print(response.toString());
+             // if(response.hasError is HttpException) throw HttpFailException;
+             // if(response.hasError is SocketException) throw NoConnectException;
+             // if(response.hasError is FormatException) throw BadFormatException;
              return response
                      .body
                      .map<Elevator>((resp) => Elevator.fromJson(resp))
@@ -54,27 +59,21 @@ class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
     // @formatter:on
   }
 
-  // void _exceptions(Response response) {
-  //   var s = response.statusCode;
-  //   if (s >= 400 && s <= 499) throw Exception('Request Error');
-  //   if (s >= 500) throw Exception('Server Error');
-  // }
-
-  // dynamic errorHandler(Response response) {
-  //   print(response.toString());
-  //   switch (response.statusCode) {
-  //     case 200:
-  //     case 201:
-  //     case 202:
-  //       var responseJson = response.body.toString();
-  //       return responseJson;
-  //     case 500:
-  //       throw "Server Error pls retry later";
-  //     case 403:
-  //       throw 'Error occurred pls check internet and retry.';
-  //     case 500:
-  //     default:
-  //       throw 'Error occurred retry';
-  //   }
-  // }
+// dynamic errorHandler(Response response) {
+//   print(response.toString());
+//   switch (response.statusCode) {
+//     case 200:
+//     case 201:
+//     case 202:
+//       var responseJson = response.body.toString();
+//       return responseJson;
+//     case 500:
+//       throw "Server Error pls retry later";
+//     case 403:
+//       throw 'Error occurred pls check internet and retry.';
+//     case 500:
+//     default:
+//       throw 'Error occurred retry';
+//   }
+// }
 }

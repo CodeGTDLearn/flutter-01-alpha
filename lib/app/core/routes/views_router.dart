@@ -9,16 +9,16 @@ import '../platforms/get_by_platform.dart';
 import 'views_routes.dart';
 
 class ViewsRouter {
-  static final _selectPlatform = Get.put(GetByPlatform());
+  static final _getByPlatform = Get.put(GetByPlatform());
 
   static List<GetPage> viewRouting = [
     GetPage(
         name: ViewsRoutes.LOGIN_VIEW_URL,
-        page: () => _selectPlatform.loginView(),
+        page: () => _getByPlatform.loginView(),
         bindings: [LoginBindings()]),
     GetPage(
         name: ViewsRoutes.ELEVATOR_LIST_URL,
-        page: () => _selectPlatform.elevatorListView(),
+        page: () => _getByPlatform.elevatorListView(),
         bindings: [ElevatorListBindings()]),
     GetPage(
         name: ViewsRoutes.ELEVATOR_DETAIL_URL,

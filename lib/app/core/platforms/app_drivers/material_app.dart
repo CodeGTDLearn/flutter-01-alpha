@@ -21,6 +21,7 @@ class MaterialDriver extends StatelessWidget {
       theme: _theme.materialTheme(),
       initialRoute: ViewsRoutes.LOGIN_VIEW_URL,
       getPages: ViewsRouter.viewRouting,
+      // initialBinding: ,
     );
   }
 }
