@@ -6,24 +6,24 @@ import 'package:get/instance_manager.dart';
 import '../properties.dart';
 
 // ignore: must_be_immutable
-class TimerMessageIndicatorAdaptive extends StatefulWidget {
+class MessageIndicatorAdaptive extends StatefulWidget {
   final _properties = Get.find<Properties>();
   double? radius;
   String? message;
   double? fontSize;
   bool _showCircularProgressIndicator = true;
 
-  TimerMessageIndicatorAdaptive.message({required this.message, required this.fontSize});
+  MessageIndicatorAdaptive.message({required this.message, required this.fontSize});
 
-  TimerMessageIndicatorAdaptive.radius([this.radius]);
+  MessageIndicatorAdaptive.radius([this.radius]);
 
-  TimerMessageIndicatorAdaptive();
+  MessageIndicatorAdaptive();
 
   @override
-  _TimerMessageIndicatorAdaptiveState createState() => _TimerMessageIndicatorAdaptiveState();
+  _MessageIndicatorAdaptiveState createState() => _MessageIndicatorAdaptiveState();
 }
 
-class _TimerMessageIndicatorAdaptiveState extends State<TimerMessageIndicatorAdaptive> {
+class _MessageIndicatorAdaptiveState extends State<MessageIndicatorAdaptive> {
   @override
   void initState() {
     super.initState();

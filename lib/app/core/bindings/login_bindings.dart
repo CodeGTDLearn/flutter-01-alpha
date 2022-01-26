@@ -1,6 +1,7 @@
 import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
 import 'package:flutter_01_alpha/app/core/components/modal/modal_cupertino.dart';
 import 'package:flutter_01_alpha/app/core/components/modal/modal_material.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/exception_handler.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_controller.dart';
 import 'package:flutter_01_alpha/app/modules/login/repo/i_login_repo.dart';
 import 'package:flutter_01_alpha/app/modules/login/repo/login_repo_getx.dart';
@@ -19,6 +20,7 @@ class LoginBindings extends Bindings {
     Get.lazyPut(() => Properties());
     Get.lazyPut(() => MessageLabels());
     Get.lazyPut(() => Labels());
+    Get.lazyPut(() => ExceptionHandler());
 
     // ADAPTIVE-ELEMENTS
     Get.lazyPut<IAdaptiveModal>(() => (ModalMaterial()), tag: 'android');

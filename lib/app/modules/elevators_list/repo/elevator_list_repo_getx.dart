@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter_01_alpha/app/core/exceptions/bad_format_exception.dart';
-import 'package:flutter_01_alpha/app/core/exceptions/htttp_fail_exception.dart';
-import 'package:flutter_01_alpha/app/core/exceptions/no_connection_exception.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/exception_handler.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/instance_manager.dart';
@@ -12,13 +8,16 @@ import 'i_elevator_list_repo.dart';
 
 class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
   final _properties = Get.find<Properties>();
+  final _exceptions = Get.find<ExceptionHandler>();
 
   @override
   void onInit() {
-    httpClient.baseUrl = _properties.apiRootUrl;
-    httpClient.defaultContentType = "application/json";
-    httpClient.timeout = const Duration(seconds: 8);
-    // httpClient.errorSafety = false; // send the exception to the service
+    httpClient
+          ..baseUrl = _properties.apiRootUrl
+          ..defaultContentType = "application/json"
+          ..timeout = const Duration(seconds: 8)
+        // ..errorSafety = false // send the exception to the service
+        ;
     super.onInit();
   }
 
@@ -26,18 +25,16 @@ class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
   Future<String> updateElevatorStatus(String id) {
     // api/elevators/{id}/online
     var url = "${_properties.updateEndp}$id/online";
-    Map body = {"status": "status"};
+    var body = "";
 
     // @formatter:off
-    var then = put(url, body)
-               .then((response) {
-                 // if(response.hasError) _exceptions(response);
-                 if (response.statusCode == 200) return Future.value("online");
-                 // if (response.statusCode >= 400) return "error";
-                 return Future.value("offline");
-               });
-
-    return then;
+    return put(url, body)
+           .then((response) {
+             _exceptions.handler(response);
+             return response.status.isOk
+                    ? Future.value("online")
+                    : Future.value("offline");
+           });
     // @formatter:on
   }
 
@@ -45,35 +42,13 @@ class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
   Future<List<Elevator>> getNotonlineElevators() {
     // @formatter:off
     return get(_properties.notOnlineElevatorsEndp)
-          .then((response)
-           {
-             // print(response.toString());
-             // if(response.hasError is HttpException) throw HttpFailException;
-             // if(response.hasError is SocketException) throw NoConnectException;
-             // if(response.hasError is FormatException) throw BadFormatException;
-             return response
-                     .body
-                     .map<Elevator>((resp) => Elevator.fromJson(resp))
-                     .toList();
-           });
+           .then((response){
+                _exceptions.handler(response);
+                return response
+                      .body
+                      .map<Elevator>((resp) => Elevator.fromJson(resp))
+                      .toList();
+            });
     // @formatter:on
   }
-
-// dynamic errorHandler(Response response) {
-//   print(response.toString());
-//   switch (response.statusCode) {
-//     case 200:
-//     case 201:
-//     case 202:
-//       var responseJson = response.body.toString();
-//       return responseJson;
-//     case 500:
-//       throw "Server Error pls retry later";
-//     case 403:
-//       throw 'Error occurred pls check internet and retry.';
-//     case 500:
-//     default:
-//       throw 'Error occurred retry';
-//   }
-// }
 }

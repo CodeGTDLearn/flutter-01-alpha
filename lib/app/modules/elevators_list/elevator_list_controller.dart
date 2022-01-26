@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_final_fields, prefer_typing_uninitialized_variables
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_01_alpha/app/core/components/messager_indicator_adaptive.dart';
 import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
-import 'package:flutter_01_alpha/app/core/components/timer_messager_indicator_adaptive.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/types/no_connection_exception.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
@@ -20,7 +23,7 @@ class ElevatorListController extends GetxController {
   final _messages = Get.find<MessageLabels>();
   final _labels = Get.find<Labels>();
 
-  var _notOnlineStatusObs = <Elevator>[].obs;
+  var _notOnlineElevatorListObs = <Elevator>[].obs;
 
   var _buttonLabelStatusObs = "Not-Online".obs;
   var _buttonColorObs = Colors.red.obs;
@@ -38,8 +41,9 @@ class ElevatorListController extends GetxController {
   Future<String> updateStatus(String id) {
     return _service.updateElevatorStatus(id).then((elevatorStatus) {
       if (elevatorStatus == 'online') {
-        var index = _notOnlineStatusObs.indexWhere((item) => item.id.toString() == id);
-        _notOnlineStatusObs.removeAt(index);
+        var index =
+            _notOnlineElevatorListObs.indexWhere((item) => item.id.toString() == id);
+        _notOnlineElevatorListObs.removeAt(index);
         buttonLabelStatusObs.value = elevatorStatus;
         return elevatorStatus;
       }
@@ -50,7 +54,7 @@ class ElevatorListController extends GetxController {
   Future<List<Elevator>> getNotonlineElevators() {
     return _service
         .getNotonlineElevators()
-        .then((elevatorList) => _notOnlineStatusObs.value = elevatorList);
+        .then((elevatorList) => _notOnlineElevatorListObs.value = elevatorList);
   }
 
   void statusButtonAnimation({required MaterialColor color, required double blur}) {
@@ -70,8 +74,8 @@ class ElevatorListController extends GetxController {
       _labels.no,
       () async {
         await updateStatus(elevator.id.toString()).then((status) async {
-          if (status == 'offline'){
-            TimerMessageIndicatorAdaptive.message(
+          if (status == 'offline') {
+            MessageIndicatorAdaptive.message(
                 message: _messages.errorUpdateTryAgain, fontSize: 20);
           }
           if (status == 'online') await _elevatorUpdateOkClosingModal(status, elevator);
@@ -120,11 +124,20 @@ class ElevatorListController extends GetxController {
 
   get buttonScaleObs => _buttonScaleObs;
 
-  get notOnlineStatusObs => _notOnlineStatusObs;
+  get notOnlineStatusObs => _notOnlineElevatorListObs;
 
   get elevatorListViewCupertinoContext => _elevatorListViewCupertinoContext;
 
   set elevatorListViewCupertinoContext(value) {
     _elevatorListViewCupertinoContext = value;
+  }
+
+  void _exceptionsThrower(var response) {
+    if (response is SocketException) throw NoConnectException();
+    // if (response.status.isServerError) throw NoConnectException();
+    // if (response.status.connectionError) throw NoConnectException();
+    // if (response.status.isNotFound) throw HttpFailException();
+    // if (response.status.code == 422) throw BadFormatException();
+    // if (response.status.hasError) throw GlobalException();
   }
 }

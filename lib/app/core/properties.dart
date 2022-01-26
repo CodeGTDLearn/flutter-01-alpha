@@ -30,7 +30,7 @@ class Properties {
   static const String _API_ELEVATOR_UPDATE_ENDPOINT = "/api/elevators/";
 
   // APP-TIME-INTERVALS
-  static const int _CUSTOM_PROGRESS_INDICICATOR_DELAY = 2;
+  static const int _CUSTOM_PROGRESS_INDICATOR_DELAY = 2;
   static const int _DELAY_MILLISEC_LISTVIEW = 600;
   static const int _DELAY_MILLISEC_LISTTILE = 600;
   static const int _DELAY_MILLISEC_STATUS_ELEVATOR = 3000;
@@ -65,7 +65,7 @@ class Properties {
 
   get appTitle => _APP_TITLE;
 
-  get custProgDelay => _CUSTOM_PROGRESS_INDICICATOR_DELAY;
+  get custProgDelay => _CUSTOM_PROGRESS_INDICATOR_DELAY;
 
   get appLogo => _IMAGE_LOGO_URL;
 

@@ -1,13 +1,8 @@
 // ignore_for_file: prefer_final_fields
 
-import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/exceptions/bad_format_exception.dart';
-import 'package:flutter_01_alpha/app/core/exceptions/global_exception.dart';
-import 'package:flutter_01_alpha/app/core/exceptions/htttp_fail_exception.dart';
-import 'package:flutter_01_alpha/app/core/exceptions/no_connection_exception.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
