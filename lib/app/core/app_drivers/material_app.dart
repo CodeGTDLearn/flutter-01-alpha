@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/platforms/look_feel/app_themes.dart';
+import 'package:flutter_01_alpha/app/core/platforms/app_themes.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_router.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:get/get.dart';
 
-import '../../properties.dart';
+import '../core_bindings.dart';
+import '../properties.dart';
+
 
 class MaterialDriver extends StatelessWidget {
   final _properties = Properties();
@@ -15,6 +17,7 @@ class MaterialDriver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: CoreBindings(),
       navigatorKey: _properties.contextGkey,
       title: _properties.appName,
       debugShowCheckedModeBanner: false,

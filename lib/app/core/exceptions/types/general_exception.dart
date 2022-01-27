@@ -1,9 +1,9 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 
-class GlobalException implements Exception {
+class GeneralException implements Exception {
   Response? response;
 
-  GlobalException({this.response});
+  GeneralException([this.response]);
 
   @override
   String toString() {

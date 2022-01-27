@@ -5,8 +5,8 @@ import 'package:flutter_01_alpha/app/core/components/messager_indicator_adaptive
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/components/sliver_appbar/i_sliver_appbar.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/components/sliver_listview.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/core/components/sliver_appbar/i_sliver_appbar.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/core/components/sliver_listview.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';

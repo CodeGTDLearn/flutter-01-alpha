@@ -3,7 +3,7 @@ import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
-import '../login_controller.dart';
+import '../../login_controller.dart';
 
 class LoginButton {
   final _properties = Get.find<Properties>();

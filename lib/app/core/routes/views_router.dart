@@ -3,8 +3,8 @@ import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_detail
 import 'package:get/route_manager.dart';
 import 'package:get/instance_manager.dart';
 
-import '../bindings/elevator_list_bindings.dart';
-import '../bindings/login_bindings.dart';
+import '../../modules/elevators_list/core/elevator_list_bindings.dart';
+import '../../modules/login/core/login_bindings.dart';
 import '../platforms/get_by_platform.dart';
 import 'views_routes.dart';
 

@@ -5,7 +5,7 @@ class BadFormatException implements Exception {
 
   Response? response;
 
-  BadFormatException({this.response});
+  BadFormatException([this.response]);
 
   @override
   String toString() {

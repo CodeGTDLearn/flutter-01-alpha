@@ -4,7 +4,7 @@ import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart
 import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_details_view_adaptive.dart';
 import 'package:get/instance_manager.dart';
 
-import '../../elevator_list_controller.dart';
+import '../../../elevator_list_controller.dart';
 import 'i_animated_tile.dart';
 
 class AnimatedTileCupertino implements IAnimatedListTile {

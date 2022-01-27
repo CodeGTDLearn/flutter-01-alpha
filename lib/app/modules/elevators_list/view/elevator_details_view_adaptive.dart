@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/components/elevator_details_status_button.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/core/components/elevator_details_panel.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/core/components/elevator_details_status_button.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 
-import '../components/elevator_details_panel.dart';
 import '../elevator_list_controller.dart';
 
 class ElevatorDetailsViewAdaptive extends StatelessWidget {

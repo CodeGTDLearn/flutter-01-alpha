@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_01_alpha/app/core/exceptions/exception_handler.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/core_handler.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/instance_manager.dart';
@@ -9,7 +9,7 @@ import 'i_login_repo.dart';
 
 class LoginRepoGetx extends GetConnect implements ILoginRepo {
   final _properties = Get.find<Properties>();
-  final _exceptions = Get.find<ExceptionHandler>();
+  final _exceptions = Get.find<CoreHandler>();
 
   @override
   void onInit() {
@@ -33,7 +33,7 @@ class LoginRepoGetx extends GetConnect implements ILoginRepo {
     // @formatter:off
     return get(url)
            .then((response) {
-              _exceptions.handler(response);
+             _exceptions.coreScan(response);
              return response.bodyString == "true" ? true : false;
            });
     // @formatter:on

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../elevator_list_controller.dart';
+import '../../elevator_list_controller.dart';
 
 class ElevatorDetailsStatusButton {
   AnimatedContainer create(

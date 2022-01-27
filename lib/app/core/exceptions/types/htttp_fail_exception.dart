@@ -4,7 +4,7 @@ class HttpFailException implements Exception {
 
   Response? response;
 
-  HttpFailException({this.response});
+  HttpFailException([this.response]);
 
   @override
   String toString() {

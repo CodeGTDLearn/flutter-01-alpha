@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
-import 'package:flutter_01_alpha/app/modules/login/components/email_form_field/email_form_field_cupertino.dart';
-import 'package:flutter_01_alpha/app/modules/login/components/login_button.dart';
+import 'package:flutter_01_alpha/app/modules/login/core/components/email_form_field/email_form_field_cupertino.dart';
+import 'package:flutter_01_alpha/app/modules/login/core/components/login_button.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_controller.dart';
 import 'package:get/instance_manager.dart';
 

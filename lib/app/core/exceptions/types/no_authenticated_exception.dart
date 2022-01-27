@@ -4,7 +4,7 @@ class NoAuthenticatedException implements Exception {
 
   Response? response;
 
-  NoAuthenticatedException({this.response});
+  NoAuthenticatedException([this.response]);
 
   @override
   String toString() {
