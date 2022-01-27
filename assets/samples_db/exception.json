@@ -1,3 +1,4 @@
+//GetNotonlineElevatorsException
 {
   "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
   "title": "One or more validation errors occurred.",
@@ -6,6 +7,19 @@
   "errors": {
     "id": [
       "The value 'NotOnlinexx' is not valid."
+    ]
+  }
+}
+
+//_updateElevatorStatusHandler
+{
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "traceId": "00-65535da2c9191e4dbb38d1774efc77be-e34554be19d6004d-00",
+  "errors": {
+    "": [
+      "A non-empty request body is required."
     ]
   }
 }

@@ -1,6 +1,5 @@
-import 'package:flutter_01_alpha/app/core/exceptions/core_handler.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
-import 'package:flutter_01_alpha/app/modules/elevators_list/core/exceptions/elevator_list_handler.dart';
+import 'package:flutter_01_alpha/app/modules/elevators_list/core/exceptions/elevator_list_exception_handler.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/instance_manager.dart';
 
@@ -9,7 +8,7 @@ import 'i_elevator_list_repo.dart';
 
 class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
   final _properties = Get.find<Properties>();
-  final _exceptions = Get.find<ElevatorListHandler>();
+  final _exceptions = Get.find<ElevatorListExceptionHandler>();
 
   @override
   void onInit() {
@@ -26,12 +25,12 @@ class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
   Future<String> updateElevatorStatus(String id) {
     // api/elevators/{id}/online
     var url = "${_properties.updateEndp}$id/online";
-    var body = "";
+    Map body = {"status": "status"};
 
     // @formatter:off
     return put(url, body)
            .then((response) {
-             _exceptions.scan(response);
+             _exceptions.updateElevatorStatus(response);
              return response.status.isOk
                     ? Future.value("online")
                     : Future.value("offline");
@@ -44,7 +43,7 @@ class ElevatorListRepoGetx extends GetConnect implements IElevatorListRepo {
     // @formatter:off
     return get(_properties.notOnlineElevatorsEndp)
            .then((response){
-                _exceptions.scan(response);
+                _exceptions.getNotonlineElevators(response);
                 return response
                       .body
                       .map<Elevator>((resp) => Elevator.fromJson(resp))

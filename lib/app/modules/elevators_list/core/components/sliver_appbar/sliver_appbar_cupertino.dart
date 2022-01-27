@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_01_alpha/app/core/platforms/cupertino_styles.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:get/instance_manager.dart';
 
@@ -19,9 +20,10 @@ class SliverAppBarCupertino implements ISliverAppBar {
   }) {
     final _platform = Platform.operatingSystem;
     return CupertinoSliverNavigationBar(
-      largeTitle: Text(_labels.large_title),
+      largeTitle: Text(_labels.large_title, style:CupertinoStyles.superiorElevatorListText ),
       middle: Text( '$title|View:$_platform'),
       automaticallyImplyLeading: false,
+      backgroundColor: CupertinoStyles.scaffoldColor,
       trailing: trailingFunction == null
           ? null
           : CupertinoButton(

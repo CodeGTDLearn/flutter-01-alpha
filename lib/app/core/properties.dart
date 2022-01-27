@@ -24,8 +24,8 @@ class Properties {
       "assets/splash/circular_progress_indicator_small.gif";
 
   // APP-API-URLS
-  // static const String _API_ROOT_URL = "https://jt-rocket-rest-api.herokuapp.com";
-  static const String _API_ROOT_URL = "https://ad4705a0-b0c7-445c-bae1-a4353306dd65.mock.pstmn.io";
+  static const String _API_ROOT_URL = "https://jt-rocket-rest-api.herokuapp.com";
+  // static const String _API_ROOT_URL = "https://ad4705a0-b0c7-445c-bae1-a4353306dd65.mock.pstmn.io";
   static const String _API_EMPLOYEE_ENDPOINT = "/api/employees";
   static const String _API_NOT_ONLINE_ELEVATORS_ENDPOINT = "/api/elevators/NotOnline";
   static const String _API_ELEVATOR_UPDATE_ENDPOINT = "/api/elevators/";

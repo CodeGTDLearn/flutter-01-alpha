@@ -110,7 +110,7 @@ class ElevatorListController extends GetxController {
     });
   }
 
-  Future<void> changingElevatorStatus(context, Elevator elevator) async {
+  Future<void> changeElevatorStatus(context, Elevator elevator) async {
     statusButtonAnimation(color: Colors.red, blur: 0);
     await Future.delayed(const Duration(milliseconds: 1000));
     modalToConfirmingStatusChange(context, elevator);

@@ -7,8 +7,10 @@ import 'package:get/route_manager.dart';
 import 'splash_adaptive.dart';
 
 class SecondarySplash extends StatelessWidget {
-  const SecondarySplash({Key? key}) : super(key: key);
-  static final _properties = Get.put(Properties());
+  SecondarySplash({Key? key}) : super(key: key);
+  final _properties = Get.put(Properties());
+  final _platform = Get.put(GetByPlatform());
+  final _secondarySplashScreen= Get.put(SplashAdaptive());
 
   // This widget is the root of your application.
   @override
@@ -23,11 +25,11 @@ class SecondarySplash extends StatelessWidget {
           // Show splash screen while waiting for app resources to load:
           if (snapshot.connectionState == ConnectionState.waiting) {
             return _properties.appPlatform == "ios"
-                ? GetCupertinoApp(home: SplashAdaptive())
-                : GetMaterialApp(home: SplashAdaptive());
+                ? GetCupertinoApp(home: _secondarySplashScreen)
+                : GetMaterialApp(home: _secondarySplashScreen);
           } else {
             // Loading is done, return the app:
-            return GetByPlatform().appDriver();
+            return _platform.appDriver();
           }
         });
   }

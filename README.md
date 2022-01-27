@@ -15,8 +15,12 @@
    4. Platform Drivers
       1. Android_app_driver 
       2. Ios_app_driver
-   5. Specific themes 
-   6. TagBindings(GetX) + DArt.io_platform: 
+   5. Specific themes
+   6. Styles-Cupertino:
+      1. How to apply styles:
+         1. https://github.com/googlecodelabs/flutter-cupertino-store/blob/master/step-06/lib/product_row_item.dart
+         2. 
+   7. TagBindings(GetX) + DArt.io_platform: 
       1. Selecting the specific dependency (Android x Ios), according the platform
 
 
@@ -56,12 +60,22 @@
       1. It is not an ERROR
       2. It is handled in the App, by itself
       3. Should be catch, and show an exception for the user
+   3. Exception handler:
+      1. Handle the exceptions
       
 
-9. FutureBuilder:
+8. FutureBuilder:
    1. Futures management
 
 
-10. PostMan as FakeApi/BackEnd:
+9. PostMan as FakeApi/BackEnd:
     1. https://www.youtube.com/watch?v=tn4IkucFEAw
     2. https://learning.postman.com/docs/designing-and-developing-your-api/mocking-data/mocking-with-examples/
+    
+
+10. Crash App Management:
+    1. Catcher:
+       1. https://medium.com/flutter-community/handling-flutter-errors-with-catcher-efce74397862
+       2. BackEnd in java for storage the crashes:
+          1. https://github.com/jhomlala/catcher/tree/master/backend
+       3. Email problem: https://github.com/taljacobson/flutter_mailer/issues/38

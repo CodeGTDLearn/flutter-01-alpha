@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_01_alpha/app/core/platforms/cupertino_styles.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
 import 'package:flutter_01_alpha/app/core/text/labels.dart';
 import 'package:flutter_01_alpha/app/modules/login/core/components/email_form_field/email_form_field_cupertino.dart';
@@ -22,7 +23,8 @@ class LoginViewCupertino extends StatelessWidget {
         navigationBar: CupertinoNavigationBar(middle: Text('${_properties
             .appTitle}|View: $_platform')),
         resizeToAvoidBottomInset: false,
-        backgroundColor: const Color.fromRGBO(240, 241, 247, 1),
+        // backgroundColor: const Color.fromRGBO(240, 241, 247, 1),
+        backgroundColor: CupertinoStyles.scaffoldColor,
         child: SafeArea(
           child: Center(
               child: Column(children: [

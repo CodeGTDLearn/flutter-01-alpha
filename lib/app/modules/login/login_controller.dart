@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields
 
 
+import 'package:catcher/core/catcher.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/properties.dart';
@@ -94,10 +95,6 @@ class LoginController extends GetxController {
                   Get.defaultDialog(title: _labels.ops, middleText:_messages
                    .authFailContent);
                   }.call())
-             // .catchError((onError){
-                // print("testannndo");
-                // _exceptionHandler(onError);
-             // })
           ;
          }
        });

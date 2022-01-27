@@ -1,18 +1,20 @@
+import 'package:catcher/core/catcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_01_alpha/app/core/platforms/app_themes.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_router.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:get/get_navigation/src/root/get_cupertino_app.dart';
+import 'package:get/instance_manager.dart';
 
 import '../core_bindings.dart';
 import '../properties.dart';
 
-class CupertinoDriver extends StatelessWidget {
-  final _properties = Properties();
-  final _theme = AppThemes();
+class CupertinoAppDriver extends StatelessWidget {
+  final _properties = Get.put(Properties());
+  final _theme = Get.put(AppThemes());
 
-  CupertinoDriver({Key? key}) : super(key: key);
+  CupertinoAppDriver({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,21 @@ class CupertinoDriver extends StatelessWidget {
   */
 
     return GetCupertinoApp(
+        //********************************************
+        // navigatorKey: _properties.contextGkey,
+        navigatorKey: Catcher.navigatorKey,
+        //********************************************
+        //********************************************
+        builder: (BuildContext context, Widget? widget) {
+          Catcher.addDefaultErrorWidget(
+              showStacktrace: true,
+              title: "Custom error title",
+              description: "Custom error description",
+              maxWidthForSmallMode: 150);
+          return widget!;
+        },
+        //********************************************
         initialBinding: CoreBindings(),
-        navigatorKey: _properties.contextGkey,
         title: _properties.appName,
         debugShowCheckedModeBanner: false,
         theme: _theme.cupertinoTheme(),

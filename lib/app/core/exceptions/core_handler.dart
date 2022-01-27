@@ -2,14 +2,13 @@ import 'package:get/get_connect/connect.dart';
 
 import 'types/bad_format_exception.dart';
 import 'types/general_exception.dart';
-import 'types/htttp_fail_exception.dart';
+import 'types/http_fail_exception.dart';
 import 'types/no_authenticated_exception.dart';
 import 'types/no_connection_exception.dart';
 
 class CoreHandler {
   void coreScan(Response response) {
-    var hasError = response.status.hasError;
-    if (hasError){
+    if (response.hasError) {
       if (response.status.isUnauthorized) throw NoAuthenticatedException();
       if (response.status.isServerError) throw NoConnectException();
       if (response.status.connectionError) throw NoConnectException();

@@ -14,13 +14,13 @@ import 'components/animated_list_tile/i_animated_tile.dart';
 import 'components/sliver_appbar/i_sliver_appbar.dart';
 import 'components/sliver_appbar/sliver_appbar_cupertino.dart';
 import 'components/sliver_appbar/sliver_appbar_material.dart';
-import 'exceptions/elevator_list_handler.dart';
+import 'exceptions/elevator_list_exception_handler.dart';
 
 class ElevatorListBindings extends Bindings {
   @override
   void dependencies() {
     // EXCEPTIONS
-    Get.lazyPut(() => ElevatorListHandler());
+    Get.lazyPut(() => ElevatorListExceptionHandler());
 
     // ADAPTIVE-ELEMENTS
     Get.lazyPut<IAdaptiveModal>(() => (ModalMaterial()), tag: 'android');
