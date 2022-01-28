@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter_01_alpha/app/core/exceptions/core_handler.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/global_exceptions_handler.dart';
 import 'package:get/get_connect/connect.dart';
 
 import 'types/get_notonline_elevators_exception.dart';
 import 'types/update_elevator_status_exception.dart';
 
-class ElevatorListExceptionHandler extends CoreHandler {
+class ElevatorListExceptionHandler extends GlobalExceptionsHandler {
 
   void getNotonlineElevators(Response<dynamic> response) {
     /* JSON-EXCEPTION-SCANNED

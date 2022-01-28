@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_delay_properties.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/entity/elevator.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/view/elevator_details_view_adaptive.dart';
 import 'package:get/instance_manager.dart';
@@ -8,7 +8,7 @@ import 'package:get/instance_manager.dart';
 import 'i_animated_tile.dart';
 
 class AnimatedTileMaterial implements IAnimatedListTile {
-  final _properties = Get.find<Properties>();
+  final _properties = Get.find<AppCoreDelayProperties>();
 
   @override
   Widget tile(Elevator elevator, [BuildContext? context]) {

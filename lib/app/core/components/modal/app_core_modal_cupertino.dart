@@ -5,7 +5,7 @@ import 'package:flutter_01_alpha/app/core/platforms/cupertino_styles.dart';
 
 import 'i_adaptive_modal.dart';
 
-class ModalCupertino implements IAdaptiveModal {
+class AppCoreModalCupertino implements IAdaptiveModal {
   @override
   void create(
     BuildContext context,

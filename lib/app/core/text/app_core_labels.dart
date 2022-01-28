@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-class Labels {
+class AppCoreLabels {
   final _LOGIN_FIELD = "Type your Email";
   final _LARGETITLE_SLIVER_APPBAR_CUPERTINO = "Not Online";
   final _LOGIN_FIELD_HINT = "Type your Email";

@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-class MessageLabels {
+class AppCoreMessages {
  static const _EMAIL_FORMAT_FIELD_LOGIN = "Please, type the email properly";
  static const _EMAIL_LOGIN_SUCESS = "Login successfully";
  static const _AUTHENTICATION_FAIL_CONTENT = "User not found or Inexistent.";

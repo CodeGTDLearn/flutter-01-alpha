@@ -1,13 +1,12 @@
 // ignore_for_file: prefer_final_fields
 
 
-import 'package:catcher/core/catcher.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_delay_properties.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
-import 'package:flutter_01_alpha/app/core/text/labels.dart';
-import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
+import 'package:flutter_01_alpha/app/core/text/app_core_labels.dart';
+import 'package:flutter_01_alpha/app/core/text/app_core_messages.dart';
 import 'package:flutter_01_alpha/app/modules/login/login_service.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/instance_manager.dart';
@@ -17,9 +16,9 @@ class LoginController extends GetxController {
   final _service = Get.find<LoginService>();
   final _loginFormKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _messages = Get.find<MessageLabels>();
-  final _labels = Get.find<Labels>();
-  final _properties = Get.find<Properties>();
+  final _messages = Get.find<AppCoreMessages>();
+  final _labels = Get.find<AppCoreLabels>();
+  final _properties = Get.find<AppCoreDelayProperties>();
 
   var _buttonColorObs = Colors.orange.obs;
   var _buttonShadowBlurObs = 30.0.obs;

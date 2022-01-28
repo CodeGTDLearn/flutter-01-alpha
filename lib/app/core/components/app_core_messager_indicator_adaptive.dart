@@ -1,29 +1,29 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_delay_properties.dart';
 import 'package:get/instance_manager.dart';
 
-import '../properties.dart';
 
 // ignore: must_be_immutable
-class MessageIndicatorAdaptive extends StatefulWidget {
-  final _properties = Get.find<Properties>();
+class AppCoreMessageIndicatorAdaptive extends StatefulWidget {
+  final _delayProps = Get.find<AppCoreDelayProperties>();
   double? radius;
   String? message;
   double? fontSize;
   bool _showCircularProgressIndicator = true;
 
-  MessageIndicatorAdaptive.message({required this.message, required this.fontSize});
+  AppCoreMessageIndicatorAdaptive.message({required this.message, required this.fontSize});
 
-  MessageIndicatorAdaptive.radius([this.radius]);
+  AppCoreMessageIndicatorAdaptive.radius([this.radius]);
 
-  MessageIndicatorAdaptive();
+  AppCoreMessageIndicatorAdaptive();
 
   @override
-  _MessageIndicatorAdaptiveState createState() => _MessageIndicatorAdaptiveState();
+  _AppCoreMessageIndicatorAdaptiveState createState() => _AppCoreMessageIndicatorAdaptiveState();
 }
 
-class _MessageIndicatorAdaptiveState extends State<MessageIndicatorAdaptive> {
+class _AppCoreMessageIndicatorAdaptiveState extends State<AppCoreMessageIndicatorAdaptive> {
   @override
   void initState() {
     super.initState();
@@ -47,7 +47,7 @@ class _MessageIndicatorAdaptiveState extends State<MessageIndicatorAdaptive> {
   }
 
   void _timer() async {
-    await Future.delayed(Duration(seconds: widget._properties.custProgDelay));
+    await Future.delayed(Duration(seconds: widget._delayProps.custProgDelay));
     if (mounted) setState(() => widget._showCircularProgressIndicator = false);
   }
 }

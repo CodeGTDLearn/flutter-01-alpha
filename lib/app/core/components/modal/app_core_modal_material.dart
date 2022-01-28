@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'i_adaptive_modal.dart';
 
-class ModalMaterial implements IAdaptiveModal {
+class AppCoreModalMaterial implements IAdaptiveModal {
   @override
   void create(
     BuildContext context,

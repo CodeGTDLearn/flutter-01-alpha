@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:flutter_01_alpha/app/core/exceptions/core_handler.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/exceptions/global_exceptions_handler.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_datasource_urls.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/instance_manager.dart';
 
 import 'i_login_repo.dart';
 
 class LoginRepoGetx extends GetConnect implements ILoginRepo {
-  final _properties = Get.find<Properties>();
-  final _exceptions = Get.find<CoreHandler>();
+  final _properties = Get.find<AppCoreDatasourceUrls>();
+  final _exceptions = Get.find<GlobalExceptionsHandler>();
 
   @override
   void onInit() {

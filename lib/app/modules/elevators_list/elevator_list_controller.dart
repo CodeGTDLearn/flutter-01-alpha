@@ -3,25 +3,27 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/components/messager_indicator_adaptive.dart';
+import 'package:flutter_01_alpha/app/core/components/app_core_messager_indicator_adaptive.dart';
 import 'package:flutter_01_alpha/app/core/components/modal/i_adaptive_modal.dart';
 import 'package:flutter_01_alpha/app/core/exceptions/types/no_connection_exception.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
-import 'package:flutter_01_alpha/app/core/text/labels.dart';
-import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_delay_properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_properties.dart';
+import 'package:flutter_01_alpha/app/core/text/app_core_labels.dart';
+import 'package:flutter_01_alpha/app/core/text/app_core_messages.dart';
 import 'package:get/get.dart';
 
 import 'elevator_list_service.dart';
 import 'entity/elevator.dart';
 
 class ElevatorListController extends GetxController {
-  final _properties = Get.find<Properties>();
+  final _generalProps = Get.find<AppCoreProperties>();
+  final _delayProps = Get.find<AppCoreDelayProperties>();
   final _service = Get.find<ElevatorListService>();
   late final _modal;
 
   // final _modal = Get.find<IAdaptiveModal>(tag: Platform.operatingSystem);
-  final _messages = Get.find<MessageLabels>();
-  final _labels = Get.find<Labels>();
+  final _messages = Get.find<AppCoreMessages>();
+  final _labels = Get.find<AppCoreLabels>();
 
   var _notOnlineElevatorListObs = <Elevator>[].obs;
 
@@ -35,7 +37,7 @@ class ElevatorListController extends GetxController {
   @override
   void onInit() {
     getNotonlineElevators();
-    _modal = Get.find<IAdaptiveModal>(tag: _properties.appPlatform);
+    _modal = Get.find<IAdaptiveModal>(tag: _generalProps.appPlatform);
   }
 
   Future<String> updateStatus(String id) {
@@ -75,7 +77,7 @@ class ElevatorListController extends GetxController {
       () async {
         await updateStatus(elevator.id.toString()).then((status) async {
           if (status == 'offline') {
-            MessageIndicatorAdaptive.message(
+            AppCoreMessageIndicatorAdaptive.message(
                 message: _messages.errorUpdateTryAgain, fontSize: 20);
           }
           if (status == 'online') await _elevatorUpdateOkClosingModal(status, elevator);
@@ -103,7 +105,7 @@ class ElevatorListController extends GetxController {
     Get.back(); // close modal
     elevator.status = elevatorStatus;
     statusButtonAnimation(color: Colors.green, blur: 15);
-    await Future.delayed(Duration(milliseconds: _properties.delayStatusElevator))
+    await Future.delayed(Duration(milliseconds: _delayProps.delayStatusElevator))
         .whenComplete(() {
       Get.back();
       statusButtonAnimation(color: Colors.red, blur: 15);

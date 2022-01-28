@@ -6,7 +6,7 @@ import 'types/http_fail_exception.dart';
 import 'types/no_authenticated_exception.dart';
 import 'types/no_connection_exception.dart';
 
-class CoreHandler {
+class GlobalExceptionsHandler {
   void coreScan(Response response) {
     if (response.hasError) {
       if (response.status.isUnauthorized) throw NoAuthenticatedException();

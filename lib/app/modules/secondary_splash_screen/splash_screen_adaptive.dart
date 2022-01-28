@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_image_properties.dart';
 import 'package:get/instance_manager.dart';
 
-class SplashAdaptive extends StatelessWidget {
-  SplashAdaptive({Key? key}) : super(key: key);
+class SplashScreenAdaptive extends StatelessWidget {
+  final _properties = Get.find<AppCoreProperties>();
+  final _images = Get.put(AppCoreImageProperties());
 
-  final _properties = Get.put(Properties());
+  SplashScreenAdaptive({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +23,11 @@ class SplashAdaptive extends StatelessWidget {
         children: [
           Container(
               width: MediaQuery.of(context).size.width * 0.8,
-              child: Image(image: AssetImage(_properties.appLogo))),
+              child: Image(image: AssetImage(_images.appLogo))),
           SizedBox(height: MediaQuery.of(context).size.width * 0.3),
           _properties.appPlatform == 'ios'
-              ? Image.asset(_properties.cupertinoIndicator)
-              : Image.asset(_properties.materialIndicator),
+              ? Image.asset(_images.cupertinoIndicator)
+              : Image.asset(_images.materialIndicator),
         ],
       ),
     ));

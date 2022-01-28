@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_01_alpha/app/core/platforms/cupertino_styles.dart';
-import 'package:flutter_01_alpha/app/core/text/labels.dart';
+import 'package:flutter_01_alpha/app/core/text/app_core_labels.dart';
 import 'package:get/instance_manager.dart';
 
 import 'i_sliver_appbar.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class SliverAppBarCupertino implements ISliverAppBar {
-  final _labels = Get.find<Labels>();
+  final _labels = Get.find<AppCoreLabels>();
 
   @override
   CupertinoSliverNavigationBar create(

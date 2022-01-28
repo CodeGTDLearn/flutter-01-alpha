@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppThemes {
+class AppCoreThemes {
   ThemeData materialTheme() => ThemeData(
         primarySwatch: Colors.blue,
       );

@@ -2,10 +2,10 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_01_alpha/app/core/components/messager_indicator_adaptive.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
-import 'package:flutter_01_alpha/app/core/text/labels.dart';
-import 'package:flutter_01_alpha/app/core/text/message_labels.dart';
+import 'package:flutter_01_alpha/app/core/components/app_core_messager_indicator_adaptive.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_properties.dart';
+import 'package:flutter_01_alpha/app/core/text/app_core_labels.dart';
+import 'package:flutter_01_alpha/app/core/text/app_core_messages.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/core/components/sliver_appbar/i_sliver_appbar.dart';
 import 'package:flutter_01_alpha/app/modules/elevators_list/core/components/sliver_listview.dart';
 import 'package:get/instance_manager.dart';
@@ -15,11 +15,11 @@ import 'package:get/state_manager.dart';
 import '../elevator_list_controller.dart';
 
 class ElevatorListViewCupertino extends StatelessWidget {
-  final _labels = Get.find<Labels>();
+  final _labels = Get.find<AppCoreLabels>();
   final _platform = Platform.operatingSystem;
   final _controller = Get.find<ElevatorListController>();
-  final _messages = Get.find<MessageLabels>();
-  final _properties = Get.find<Properties>();
+  final _messages = Get.find<AppCoreMessages>();
+  final _properties = Get.find<AppCoreProperties>();
 
 
   @override
@@ -28,13 +28,13 @@ class ElevatorListViewCupertino extends StatelessWidget {
     return CupertinoPageScaffold(
         // navigationBar: CupertinoNavigationBar(middle: Text(_labels.elevListTitle)),
         child: Obx(() => (_controller.notOnlineStatusObs.toList().isEmpty
-            ? MessageIndicatorAdaptive.message(
+            ? AppCoreMessageIndicatorAdaptive.message(
                 message: _messages.dbElevatorsEmpty, fontSize: 20)
             : FutureBuilder(
                 future: _controller.getNotonlineElevators(),
                 builder: (c, snap) {
                   if (snap.hasError) {
-                    return MessageIndicatorAdaptive.message(
+                    return AppCoreMessageIndicatorAdaptive.message(
                         message: _messages.errorTryAgainLater, fontSize: 20);
                   }
                   return _customScrollView();

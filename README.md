@@ -3,8 +3,10 @@
 1. Splash-Screen:
     1. Primary (native):
        1. package: flutter_native_splash
+          1. https://pub.dev/packages/flutter_native_splash
     2. Secondary (Widget) 
        1. Adaptive (Android x Ios)
+          1. Ex.:https://github.com/jonbhanson/flutter_native_splash/blob/master/example/lib/main.dart
 
 
 2. Adaptive approuch (Android x Ios):

@@ -1,20 +1,23 @@
-import 'package:catcher/core/catcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_01_alpha/app/core/platforms/app_themes.dart';
+import 'package:flutter_01_alpha/app/core/platforms/app_core_themes.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_properties.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_router.dart';
 import 'package:flutter_01_alpha/app/core/routes/views_routes.dart';
 import 'package:get/get_navigation/src/root/get_cupertino_app.dart';
 import 'package:get/instance_manager.dart';
 
-import '../core_bindings.dart';
-import '../properties.dart';
+import '../bindings/app_core_bindings.dart';
+import '../crash_monitor/crash_monitor.dart';
+import '../properties/app_core_localization_properties.dart';
 
-class CupertinoAppDriver extends StatelessWidget {
-  final _properties = Get.put(Properties());
-  final _theme = Get.put(AppThemes());
+class CupertinoDriver extends StatelessWidget {
+  final _theme = Get.put(AppCoreThemes());
+  final _monitor = Get.put(CrashMonitor());
+  final _generalProps = Get.find<AppCoreProperties>();
+  final _localProps = Get.put(AppCoreLocalizationProperties());
 
-  CupertinoAppDriver({Key? key}) : super(key: key);
+  CupertinoDriver({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,28 +28,15 @@ class CupertinoAppDriver extends StatelessWidget {
   ║    required to create an app that an iOS user expects.  ║
   ╚═════════════════════════════════════════════════════════╝
   */
-
     return GetCupertinoApp(
-        //********************************************
-        // navigatorKey: _properties.contextGkey,
-        navigatorKey: Catcher.navigatorKey,
-        //********************************************
-        //********************************************
-        builder: (BuildContext context, Widget? widget) {
-          Catcher.addDefaultErrorWidget(
-              showStacktrace: true,
-              title: "Custom error title",
-              description: "Custom error description",
-              maxWidthForSmallMode: 150);
-          return widget!;
-        },
-        //********************************************
-        initialBinding: CoreBindings(),
-        title: _properties.appName,
+        navigatorKey: _monitor.key,
+        builder: _monitor.crashRedScreenSubstitute,
+        initialBinding: AppCoreBindings(),
+        title: _generalProps.appName,
         debugShowCheckedModeBanner: false,
         theme: _theme.cupertinoTheme(),
         initialRoute: ViewsRoutes.LOGIN_VIEW_URL,
         getPages: ViewsRouter.viewRouting,
-        localizationsDelegates: _properties.localizationsDelegates);
+        localizationsDelegates: _localProps.localizationsDelegates);
   }
 }

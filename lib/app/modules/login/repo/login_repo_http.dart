@@ -1,11 +1,11 @@
-import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_datasource_urls.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
 
 import 'i_login_repo.dart';
 
 class LoginRepoHttp extends ILoginRepo {
-  final _properties = Get.find<Properties>();
+  final _properties = Get.find<AppCoreDatasourceUrls>();
 
   @override
   Future<bool> authentication(String email) {

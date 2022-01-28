@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_datasource_urls.dart';
 import 'package:get/instance_manager.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,7 +8,7 @@ import '../entity/elevator.dart';
 import 'i_elevator_list_repo.dart';
 
 class ElevatorListRepoHttp implements IElevatorListRepo {
-  final _properties = Get.find<Properties>();
+  final _properties = Get.find<AppCoreDatasourceUrls>();
 
   @override
   Future<String> updateElevatorStatus(String id) {

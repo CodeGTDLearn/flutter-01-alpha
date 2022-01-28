@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_01_alpha/app/core/properties.dart';
+import 'package:flutter_01_alpha/app/core/properties/app_core_image_properties.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 
 import '../../login_controller.dart';
 
 class LoginButton {
-  final _properties = Get.find<Properties>();
+  final _properties = Get.find<AppCoreImageProperties>();
 
   Container create(
     BuildContext context,
